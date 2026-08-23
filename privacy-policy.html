@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+
+  gtag("config", "G-XXXXXXXXXX");
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — GlowRoutine</title>
+<meta name="description" content="GlowRoutine's privacy policy covering analytics and affiliate link tracking.">
+<link rel="stylesheet" href="style.css?v=1">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo">✨ GlowRoutine</a>
+    <nav class="main-nav">
+      <a href="index.html">Home</a>
+      <div class="nav-dropdown">
+  <button class="nav-dropdown-btn" type="button">Categories &#9662;</button>
+  <div class="nav-dropdown-menu">
+    <span class="nav-dropdown-heading">Skincare Tech</span>
+    <a href="led-light-therapy-face-masks.html">LED Light Therapy Face Masks</a>
+    <a href="facial-steamers-at-home-spa-tools.html">Facial Steamers &amp; At-Home Spa Tools</a>
+    <span class="nav-dropdown-heading">Hair Care</span>
+    <a href="silk-pillowcases-hair-care-essentials.html">Silk Pillowcases &amp; Hair Care Essentials</a>
+    <a href="compact-hair-straighteners-travel-stylers.html">Compact Hair Straighteners &amp; Travel Stylers</a>
+    <span class="nav-dropdown-heading">Makeup &amp; Vanity</span>
+    <a href="lighted-makeup-mirrors.html">Lighted Makeup Mirrors</a>
+    <a href="makeup-jewelry-travel-organizers.html">Makeup &amp; Jewelry Travel Organizers</a>
+  </div>
+</div>
+      <a href="affiliate-disclosure.html">Disclosure</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container" style="max-width:720px; padding-top:40px; padding-bottom:60px;">
+  <h1>Privacy Policy</h1>
+  <p>This site uses Google Analytics to understand how visitors use GlowRoutine, and Amazon Associates affiliate link tracking to measure which guides drive purchases. Both may use cookies or similar technologies.</p>
+  <p>We do not collect personal information directly (such as names or email addresses) unless you voluntarily provide it to us, and we do not sell any information to third parties.</p>
+  <p>If you have questions about this policy, you're welcome to reach out.</p>
+  <p><em>Last updated: August 2026.</em></p>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <span>&copy; 2026 GlowRoutine</span>
+    <span class="footer-links">
+      <a href="affiliate-disclosure.html">Affiliate Disclosure</a>
+      <a href="privacy-policy.html">Privacy Policy</a>
+    </span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var btn = document.querySelector('.nav-dropdown-btn');
+  var menu = document.querySelector('.nav-dropdown-menu');
+  if(btn && menu){
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      menu.classList.toggle('open');
+    });
+    menu.addEventListener('click', function(e){ e.stopPropagation(); });
+    document.addEventListener('click', function(){
+      menu.classList.remove('open');
+    });
+  }
+})();
+</script>
+</body>
+</html>

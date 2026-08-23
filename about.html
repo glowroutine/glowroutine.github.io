@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+
+  gtag("config", "G-XXXXXXXXXX");
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About GlowRoutine — Who We Are &amp; How We Pick Products</title>
+<meta name="description" content="GlowRoutine curates research-backed beauty and self-care picks. Here's who we are and how we choose what to recommend.">
+<link rel="stylesheet" href="style.css?v=1">
+</head>
+<body>
+
+<div class="disclosure-banner">
+  Contains affiliate links — we may earn a commission at no cost to you. <a href="affiliate-disclosure.html" aria-label="Learn more about our affiliate disclosure">Learn more</a>
+</div>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo">✨ GlowRoutine</a>
+    <nav class="main-nav">
+      <a href="index.html">Home</a>
+      <div class="nav-dropdown">
+  <button class="nav-dropdown-btn" type="button">Categories &#9662;</button>
+  <div class="nav-dropdown-menu">
+    <span class="nav-dropdown-heading">Skincare Tech</span>
+    <a href="led-light-therapy-face-masks.html">LED Light Therapy Face Masks</a>
+    <a href="facial-steamers-at-home-spa-tools.html">Facial Steamers &amp; At-Home Spa Tools</a>
+    <span class="nav-dropdown-heading">Hair Care</span>
+    <a href="silk-pillowcases-hair-care-essentials.html">Silk Pillowcases &amp; Hair Care Essentials</a>
+    <a href="compact-hair-straighteners-travel-stylers.html">Compact Hair Straighteners &amp; Travel Stylers</a>
+    <span class="nav-dropdown-heading">Makeup &amp; Vanity</span>
+    <a href="lighted-makeup-mirrors.html">Lighted Makeup Mirrors</a>
+    <a href="makeup-jewelry-travel-organizers.html">Makeup &amp; Jewelry Travel Organizers</a>
+  </div>
+</div>
+      <a href="affiliate-disclosure.html">Disclosure</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<main class="about-body">
+  <h1>About GlowRoutine</h1>
+  <p class="about-tagline">Research-backed beauty and self-care picks, without the sponsored-post noise.</p>
+
+  <h2>Who we are</h2>
+  <p>GlowRoutine is a small, independent site focused on one specific problem: too much beauty advice online is either a sponsored post dressed up as a recommendation, or a "best of" list that was never actually compared against anything. We started this site to do the comparison work properly — skincare tech, hair care, and makeup organization, picked on what the reviews and specs actually say, not on what pays the highest commission.</p>
+
+  <h2>How we choose what to recommend</h2>
+  <p>We don't test every product physically — what we do instead is research each pick carefully before it goes on the site:</p>
+  <ul>
+    <li>We compare products within a category on the things that actually matter — real specs, what a device is genuinely good for versus what the marketing implies, and how it holds up based on buyer reviews.</li>
+    <li>We read through publicly available customer reviews and ratings, looking specifically for patterns — recurring complaints about durability, sizing, or performance are treated as more reliable than a single five-star review.</li>
+    <li>We favor products with a solid volume of reviews and recognizable trust signals over lesser-known items with little feedback, unless a lesser-known item is clearly the better fit for a specific need.</li>
+    <li>We organize each guide by tier (budget, mid-range, premium) so you can compare honestly instead of only seeing the option that pays the highest commission.</li>
+  </ul>
+
+  <h2>How we make money</h2>
+  <p>GlowRoutine is a participant in the Amazon Associates program. When you click one of our product links and make a qualifying purchase, we may earn a small commission — at no extra cost to you. This is the only way the site makes money; we don't accept payment from brands to feature their products, and commission never determines which product we call the "best pick" in a guide. Full details are on our <a href="affiliate-disclosure.html">affiliate disclosure page</a>.</p>
+
+  <h2>Our promise</h2>
+  <p>Every guide is written to help you make a decision quickly, not to talk you into the most expensive option. If a budget pick is genuinely the smartest choice for most people, we'll say so. If you have feedback on a guide, or a category you'd like us to cover, we'd love to hear about it.</p>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <span>&copy; 2026 GlowRoutine</span>
+    <span class="footer-links">
+      <a href="affiliate-disclosure.html">Affiliate Disclosure</a>
+      <a href="privacy-policy.html">Privacy Policy</a>
+    </span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var btn = document.querySelector('.nav-dropdown-btn');
+  var menu = document.querySelector('.nav-dropdown-menu');
+  if(btn && menu){
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      menu.classList.toggle('open');
+    });
+    menu.addEventListener('click', function(e){ e.stopPropagation(); });
+    document.addEventListener('click', function(){
+      menu.classList.remove('open');
+    });
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+
+  gtag("config", "G-XXXXXXXXXX");
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Affiliate Disclosure — GlowRoutine</title>
+<meta name="description" content="GlowRoutine's affiliate disclosure — how the site is a participant in the Amazon Associates program and how that shapes what we recommend.">
+<link rel="stylesheet" href="style.css?v=1">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo">✨ GlowRoutine</a>
+    <nav class="main-nav">
+      <a href="index.html">Home</a>
+      <div class="nav-dropdown">
+  <button class="nav-dropdown-btn" type="button">Categories &#9662;</button>
+  <div class="nav-dropdown-menu">
+    <span class="nav-dropdown-heading">Skincare Tech</span>
+    <a href="led-light-therapy-face-masks.html">LED Light Therapy Face Masks</a>
+    <a href="facial-steamers-at-home-spa-tools.html">Facial Steamers &amp; At-Home Spa Tools</a>
+    <span class="nav-dropdown-heading">Hair Care</span>
+    <a href="silk-pillowcases-hair-care-essentials.html">Silk Pillowcases &amp; Hair Care Essentials</a>
+    <a href="compact-hair-straighteners-travel-stylers.html">Compact Hair Straighteners &amp; Travel Stylers</a>
+    <span class="nav-dropdown-heading">Makeup &amp; Vanity</span>
+    <a href="lighted-makeup-mirrors.html">Lighted Makeup Mirrors</a>
+    <a href="makeup-jewelry-travel-organizers.html">Makeup &amp; Jewelry Travel Organizers</a>
+  </div>
+</div>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container" style="max-width:720px; padding-top:40px; padding-bottom:60px;">
+  <h1>Affiliate Disclosure</h1>
+  <p>GlowRoutine is a participant in the Amazon Services LLC Associates Program, an affiliate advertising program designed to provide a means for sites to earn advertising fees by advertising and linking to Amazon.com. As an Amazon Associate, we earn from qualifying purchases — at no additional cost to you.</p>
+  <p>We only recommend products we believe genuinely help with skincare, hair care, or makeup and beauty organization. Our opinions and recommendations are our own; commission never determines which product we call the "best pick" in a guide.</p>
+  <p>Product links on this site are typically marked or styled as "Check price on Amazon" buttons. When you click one and make a qualifying purchase, we may earn a small commission. Prices and availability shown on Amazon are accurate as of the date indicated on each guide and are subject to change.</p>
+  <p><em>Last updated: August 2026.</em></p>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <span>&copy; 2026 GlowRoutine</span>
+    <span class="footer-links">
+      <a href="affiliate-disclosure.html">Affiliate Disclosure</a>
+      <a href="privacy-policy.html">Privacy Policy</a>
+    </span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var btn = document.querySelector('.nav-dropdown-btn');
+  var menu = document.querySelector('.nav-dropdown-menu');
+  if(btn && menu){
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      menu.classList.toggle('open');
+    });
+    menu.addEventListener('click', function(e){ e.stopPropagation(); });
+    document.addEventListener('click', function(){
+      menu.classList.remove('open');
+    });
+  }
+})();
+</script>
+</body>
+</html>
