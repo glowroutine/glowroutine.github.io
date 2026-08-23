@@ -191,6 +191,8 @@ nav.main-nav a:hover{color:var(--accent);}
   text-align:center;
   margin:26px 0 44px;
   background:linear-gradient(135deg, #f6c9d6 0%, #fbe3ea 50%, #e8b3c6 100%);
+  background-size:cover;
+  background-position:center;
 }
 .hero-banner::before{
   content:"";
