@@ -107,6 +107,8 @@ nav.main-nav a:hover{color:var(--accent);}
 .nav-dropdown-menu.open{
   display:flex;
   flex-direction:column;
+  max-height:80vh;
+  overflow-y:auto;
 }
 .nav-dropdown-heading{
   display:block;
@@ -310,6 +312,7 @@ nav.main-nav a:hover{color:var(--accent);}
 .tag-skincare{background:#e6f2ef;color:#1f6b57;}
 .tag-haircare{background:#f7e9ee;color:#9c3f5e;}
 .tag-makeup{background:#fdf1e0;color:#8a5c0c;}
+.tag-bath{background:#e4eef6;color:#2f5f7d;}
 .guide-link{
   margin-top:18px;
   font-size:13.5px;
@@ -433,6 +436,8 @@ h2.prod-title:first-of-type{border-top:none;padding-top:0;}
 .hero-ph-skincare{background:linear-gradient(135deg,#cdeade,#eaf7f1);}
 .hero-ph-haircare{background:linear-gradient(135deg,#f3d3de,#fbeaf0);}
 .hero-ph-makeup{background:linear-gradient(135deg,#fadeae,#fdf1e0);}
+.hero-ph-bath{background:linear-gradient(135deg,#d6e8f2,#eef6fb);}
+.hero-ph-wellness{background:linear-gradient(135deg,#e3ddf5,#f4f0fc);}
 
 /* Quick-compare table */
 .compare-wrap{
