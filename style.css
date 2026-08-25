@@ -200,7 +200,7 @@ nav.main-nav a:hover{color:var(--accent);}
   content:"";
   position:absolute;
   inset:0;
-  background:linear-gradient(180deg, rgba(60,20,35,0.08) 0%, rgba(60,20,35,0.12) 45%, rgba(60,20,35,0.28) 100%);
+  background:linear-gradient(180deg, rgba(58,18,32,0.22) 0%, rgba(58,18,32,0.3) 45%, rgba(58,18,32,0.5) 100%);
 }
 .hero-banner-inner{
   position:relative;
@@ -212,14 +212,15 @@ nav.main-nav a:hover{color:var(--accent);}
   font-size:36px;
   line-height:1.25;
   margin:0 0 14px;
-  color:#3a1a26;
-  text-shadow:0 1px 2px rgba(255,255,255,0.35);
+  color:#fff;
+  text-shadow:0 2px 6px rgba(0,0,0,0.5), 0 1px 22px rgba(0,0,0,0.4);
 }
-.hero-banner h1 .accent{color:#a3335a;}
+.hero-banner h1 .accent{color:#ffcfe0;}
 .hero-banner p{
-  color:#4a2431;
+  color:rgba(255,255,255,0.96);
   font-size:17px;
   margin:0;
+  text-shadow:0 1px 4px rgba(0,0,0,0.55), 0 1px 14px rgba(0,0,0,0.35);
 }
 @media (max-width:640px){
   .hero-banner{
