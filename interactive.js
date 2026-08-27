@@ -282,11 +282,45 @@
     });
   }
 
+  /* ---------- Contact form (About page, fetch-based, stays on page) ---------- */
+  function initContactForms(){
+    var forms = document.querySelectorAll('.contact-form');
+    Array.prototype.forEach.call(forms, function(form){
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+        var btn = form.querySelector('button[type="submit"]');
+        var msgEl = form.parentNode.querySelector('.contact-msg');
+        var originalText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = 'Sending...';
+        var formData = new FormData(form);
+        fetch(form.action, {
+          method: 'POST',
+          body: formData,
+          headers: { 'Accept': 'application/json' }
+        }).then(function(res){
+          if (res.ok){
+            if (msgEl) msgEl.textContent = "Message sent — thank you! We'll get back to you soon.";
+            form.reset();
+          } else {
+            if (msgEl) msgEl.textContent = 'Something went wrong — please try again.';
+          }
+        }).catch(function(){
+          if (msgEl) msgEl.textContent = 'Something went wrong — please try again.';
+        }).then(function(){
+          btn.disabled = false;
+          btn.textContent = originalText;
+        });
+      });
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', function(){
     initFavoriteButtons();
     initComparator();
     renderFavoritesPage();
     initNewsletterForms();
+    initContactForms();
   });
 
   window.GlowTools = {

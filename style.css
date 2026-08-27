@@ -831,6 +831,30 @@ input[type="range"].planner-range::-moz-range-thumb{
 .newsletter-form button:disabled{opacity:0.6;cursor:not-allowed;transform:none;}
 .newsletter-msg{font-size:12.5px;color:#2f6039;font-weight:600;margin-top:12px;min-height:16px;}
 
+/* Contact form (About page) */
+.contact-block{
+  background:linear-gradient(135deg, var(--card), var(--bg));
+  border:1px solid var(--border);border-radius:18px;
+  padding:28px 30px;margin:40px 0;text-align:center;
+}
+.contact-block h3{font-size:19px;margin:0 0 8px;}
+.contact-block > p{color:var(--muted);font-size:13.5px;margin:0 0 18px;max-width:480px;margin-left:auto;margin-right:auto;}
+.contact-form{display:flex;flex-direction:column;gap:12px;max-width:440px;margin:0 auto;}
+.contact-form input,.contact-form textarea{
+  padding:12px 16px;border-radius:10px;border:1.5px solid var(--border);
+  font-family:inherit;font-size:14px;color:var(--ink);width:100%;
+}
+.contact-form textarea{resize:vertical;min-height:110px;line-height:1.5;}
+.contact-form input:focus,.contact-form textarea:focus{outline:none;border-color:var(--accent);}
+.contact-form button{
+  background:linear-gradient(135deg, var(--accent), var(--accent-dark));color:#fff;border:none;
+  border-radius:10px;padding:12px 22px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;
+  transition:transform 0.15s ease, filter 0.15s ease;
+}
+.contact-form button:hover{transform:translateY(-2px);filter:brightness(1.05);}
+.contact-form button:disabled{opacity:0.6;cursor:not-allowed;transform:none;}
+.contact-msg{font-size:12.5px;color:#2f6039;font-weight:600;margin-top:12px;min-height:16px;}
+
 /* Favorites page */
 .fav-hero{text-align:center;padding:34px 0 8px;}
 .fav-hero h1{font-size:28px;margin:0 0 8px;}
@@ -851,7 +875,7 @@ input[type="range"].planner-range::-moz-range-thumb{
 .fav-remove:hover{color:#b0392f;}
 
 @media print{
-  header.site-header, footer.site-footer, .disclosure-banner, .newsletter-block,
+  header.site-header, footer.site-footer, .disclosure-banner, .newsletter-block, .contact-block,
   .planner-actions, .compare-bar, .fav-btn, .compare-check-wrap, .plan-check-wrap,
   .mobile-menu-btn, .wizard-view, #wizard-view{display:none !important;}
   body{background:#fff;}
@@ -866,6 +890,7 @@ input[type="range"].planner-range::-moz-range-thumb{
   .newsletter-form input[type="email"]{width:100%;}
   .newsletter-form button{width:100%;}
   .newsletter-block{padding:24px 18px;}
+  .contact-block{padding:24px 18px;}
   .compare-bar{left:16px;right:16px;transform:translateX(0) translateY(120%);width:auto;}
   .compare-bar.open{transform:translateX(0) translateY(0);}
   .fav-btn{padding:9px 13px;font-size:13px;}
