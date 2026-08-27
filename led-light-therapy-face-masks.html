@@ -15,7 +15,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Best LED Light Therapy Face Masks for At-Home Skincare — GlowRoutine</title>
 <meta name="description" content="At-home LED light therapy masks compared by light type, treatment area, and what each one is actually good for — from a budget silicone mask to a professional-grade option.">
-<link rel="stylesheet" href="style.css?v=4">
+<link rel="stylesheet" href="style.css?v=5">
 </head>
 <body>
 
@@ -26,6 +26,7 @@
 <header class="site-header">
   <div class="container header-inner">
     <a href="index.html" class="logo">✨ GlowRoutine</a>
+    <button class="mobile-menu-btn" type="button" aria-label="Menu" aria-expanded="false">&#9776;</button>
     <nav class="main-nav">
       <a href="index.html">Home</a>
       <div class="nav-dropdown">
@@ -187,6 +188,24 @@
     menu.addEventListener('click', function(e){ e.stopPropagation(); });
     document.addEventListener('click', function(){
       menu.classList.remove('open');
+    });
+  }
+  var mBtn = document.querySelector('.mobile-menu-btn');
+  var mNav = document.querySelector('nav.main-nav');
+  if(mBtn && mNav){
+    mBtn.addEventListener('click', function(e){
+      e.stopPropagation();
+      var isOpen = mNav.classList.toggle('mobile-open');
+      mBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      mBtn.innerHTML = isOpen ? '&times;' : '&#9776;';
+    });
+    mNav.addEventListener('click', function(e){ e.stopPropagation(); });
+    document.addEventListener('click', function(){
+      if(mNav.classList.contains('mobile-open')){
+        mNav.classList.remove('mobile-open');
+        mBtn.setAttribute('aria-expanded', 'false');
+        mBtn.innerHTML = '&#9776;';
+      }
     });
   }
 })();
