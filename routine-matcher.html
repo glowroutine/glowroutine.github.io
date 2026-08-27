@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QFQPSW373S"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+
+  gtag("config", "G-QFQPSW373S");
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Routine Matcher — Get a Personalized Beauty Routine — GlowRoutine</title>
+<meta name="description" content="Answer 4 quick questions about your focus, your budget and whether you need travel-friendly picks — get a personalized routine plan matched to your situation.">
+<link rel="stylesheet" href="style.css?v=4">
+</head>
+<body>
+
+<div class="disclosure-banner">
+  Contains affiliate links — we may earn a commission at no cost to you. <a href="affiliate-disclosure.html" aria-label="Learn more about our affiliate disclosure">Learn more</a>
+</div>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo">✨ GlowRoutine</a>
+    <nav class="main-nav">
+      <a href="index.html">Home</a>
+      <div class="nav-dropdown">
+  <button class="nav-dropdown-btn" type="button">Categories &#9662;</button>
+  <div class="nav-dropdown-menu">
+    <span class="nav-dropdown-heading">Skincare Tech</span>
+    <a href="led-light-therapy-face-masks.html">LED Light Therapy Face Masks</a>
+    <a href="facial-steamers-at-home-spa-tools.html">Facial Steamers &amp; At-Home Spa Tools</a>
+    <a href="microcurrent-radiofrequency-facial-devices.html">Microcurrent &amp; Radiofrequency Facial Devices</a>
+    <span class="nav-dropdown-heading">Hair Care</span>
+    <a href="silk-pillowcases-hair-care-essentials.html">Silk Pillowcases &amp; Hair Care Essentials</a>
+    <a href="compact-hair-straighteners-travel-stylers.html">Compact Hair Straighteners &amp; Travel Stylers</a>
+    <a href="high-end-hair-styling-tools.html">High-End Hair Styling Tools</a>
+    <span class="nav-dropdown-heading">Makeup &amp; Vanity</span>
+    <a href="lighted-makeup-mirrors.html">Lighted Makeup Mirrors</a>
+    <a href="makeup-jewelry-travel-organizers.html">Makeup &amp; Jewelry Travel Organizers</a>
+    <a href="fine-jewelry-care-display-boxes.html">Fine Jewelry Care &amp; Display Boxes</a>
+    <span class="nav-dropdown-heading">Bath &amp; Wellness</span>
+    <a href="luxury-bath-aromatherapy-rituals.html">Luxury Bath &amp; Aromatherapy Rituals</a>
+    <a href="recovery-wellness-tech-for-women.html">Recovery &amp; Wellness Tech for Women</a>
+    <a href="designer-perfume-organizers-atomizer-sets.html">Designer Perfume Organizers &amp; Atomizer Sets</a>
+  </div>
+</div>
+      <a href="routine-matcher.html" style="color:var(--accent-dark);">Routine Matcher</a>
+      <a href="tips-and-guides.html">Tips &amp; Guides</a>
+      <a href="affiliate-disclosure.html">Disclosure</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<main class="planner-wrap">
+
+  <div id="wizard-view">
+    <div class="planner-hero">
+      <span class="planner-badge">Free tool</span>
+      <h1>Smart Routine Matcher</h1>
+      <p>Answer 4 quick questions about your focus, your budget and whether you need travel-friendly picks — get a personalized routine plan matched to your situation, not a generic list.</p>
+    </div>
+
+    <div class="planner-progress">
+      <div class="planner-progress-step" data-step="1"></div>
+      <div class="planner-progress-step" data-step="2"></div>
+      <div class="planner-progress-step" data-step="3"></div>
+      <div class="planner-progress-step" data-step="4"></div>
+    </div>
+
+    <div class="planner-card">
+
+      <div class="planner-step" data-step="1">
+        <h2>What's your main focus right now?</h2>
+        <p class="step-sub">Pick the area you want to build your routine around.</p>
+        <div class="option-grid" id="grid-concern"></div>
+        <div class="planner-nav-row">
+          <span></span>
+          <button class="planner-btn primary" id="btn-next-1" disabled>Next →</button>
+        </div>
+      </div>
+
+      <div class="planner-step" data-step="2">
+        <h2>Home routine, or need it travel-friendly?</h2>
+        <p class="step-sub">This changes what we recommend — travel picks are compact and TSA-friendly.</p>
+        <div class="option-grid" id="grid-travel">
+          <div class="option-card" data-value="0"><span class="opt-icon">🏡</span>Home routine</div>
+          <div class="option-card" data-value="1"><span class="opt-icon">✈️</span>Needs to travel well</div>
+        </div>
+        <div class="planner-nav-row">
+          <button class="planner-btn ghost" data-back="1">← Back</button>
+          <button class="planner-btn primary" id="btn-next-2" disabled>Next →</button>
+        </div>
+      </div>
+
+      <div class="planner-step" data-step="3">
+        <h2>What matters most to you?</h2>
+        <p class="step-sub">Pick up to 2 priorities — we'll build your plan around these first.</p>
+        <div class="option-grid" id="grid-priority"></div>
+        <div class="planner-nav-row">
+          <button class="planner-btn ghost" data-back="2">← Back</button>
+          <button class="planner-btn primary" id="btn-next-3" disabled>Next →</button>
+        </div>
+      </div>
+
+      <div class="planner-step" data-step="4">
+        <h2>What's your budget?</h2>
+        <p class="step-sub">Drag to set your total budget — your plan updates instantly.</p>
+        <div class="budget-slider-wrap">
+          <div class="budget-value"><span id="budget-num">150</span><span> USD total</span></div>
+          <input type="range" class="planner-range" id="budget-slider" min="20" max="600" step="10" value="150">
+          <p class="budget-hint">From one quick upgrade ($20) to a full routine refresh ($600+).</p>
+        </div>
+        <div class="planner-nav-row">
+          <button class="planner-btn ghost" data-back="3">← Back</button>
+          <button class="planner-btn primary" id="btn-see-plan">See my plan →</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="results-view" class="planner-results">
+    <div class="results-head">
+      <h1>Your personalized routine plan</h1>
+      <p>Matched to your focus, your budget, and whether it needs to travel.</p>
+    </div>
+    <div class="results-chips" id="results-chips"></div>
+
+    <div class="budget-dashboard">
+      <h3>Suggested budget split</h3>
+      <p class="bd-sub">A starting point — adjust as real prices vary by pick.</p>
+      <div id="budget-bars"></div>
+    </div>
+
+    <div class="plan-grid" id="plan-grid"></div>
+
+    <div class="planner-actions">
+      <button class="planner-btn secondary" id="btn-adjust">Adjust my answers</button>
+      <button class="planner-btn primary" id="btn-save">Save / share this plan</button>
+    </div>
+    <div class="save-confirm" id="save-confirm"></div>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <span>&copy; 2026 GlowRoutine</span>
+    <span class="footer-links">
+      <a href="affiliate-disclosure.html">Affiliate Disclosure</a>
+      <a href="privacy-policy.html">Privacy Policy</a>
+    </span>
+  </div>
+</footer>
+
+<script src="planner-data.js"></script>
+<script>
+(function(){
+  var btn = document.querySelector('.nav-dropdown-btn');
+  var menu = document.querySelector('.nav-dropdown-menu');
+  if(btn && menu){
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      menu.classList.toggle('open');
+    });
+    menu.addEventListener('click', function(e){ e.stopPropagation(); });
+    document.addEventListener('click', function(){
+      menu.classList.remove('open');
+    });
+  }
+})();
+
+(function(){
+  var state = { concern:null, travel:null, priorities:[], budget:150 };
+  var currentStep = 1;
+  var MAX_PRIORITIES = 2;
+
+  var wizardView = document.getElementById('wizard-view');
+  var resultsView = document.getElementById('results-view');
+
+  /* ---- Step 1: concern ---- */
+  var gridConcern = document.getElementById('grid-concern');
+  PLANNER_CONCERNS.forEach(function(r){
+    var el = document.createElement('div');
+    el.className = 'option-card';
+    el.dataset.value = r.key;
+    el.innerHTML = '<span class="opt-icon">'+r.icon+'</span>'+r.label;
+    el.addEventListener('click', function(){
+      Array.prototype.forEach.call(gridConcern.children, function(c){ c.classList.remove('selected'); });
+      el.classList.add('selected');
+      state.concern = r.key;
+      document.getElementById('btn-next-1').disabled = false;
+    });
+    gridConcern.appendChild(el);
+  });
+
+  /* ---- Step 2: travel ---- */
+  var gridTravel = document.getElementById('grid-travel');
+  Array.prototype.forEach.call(gridTravel.children, function(el){
+    el.addEventListener('click', function(){
+      Array.prototype.forEach.call(gridTravel.children, function(c){ c.classList.remove('selected'); });
+      el.classList.add('selected');
+      state.travel = el.dataset.value === '1';
+      document.getElementById('btn-next-2').disabled = false;
+    });
+  });
+
+  /* ---- Step 3: priorities (multi, max 2) ---- */
+  var gridPriority = document.getElementById('grid-priority');
+  PLANNER_PRIORITIES.forEach(function(p){
+    var el = document.createElement('div');
+    el.className = 'option-card';
+    el.dataset.value = p.key;
+    el.innerHTML = '<span class="opt-icon">'+p.icon+'</span>'+p.label;
+    el.addEventListener('click', function(){
+      var idx = state.priorities.indexOf(p.key);
+      if (idx !== -1){
+        state.priorities.splice(idx,1);
+        el.classList.remove('selected');
+      } else {
+        if (state.priorities.length >= MAX_PRIORITIES){
+          var firstKey = state.priorities.shift();
+          var firstEl = gridPriority.querySelector('[data-value="'+firstKey+'"]');
+          if (firstEl) firstEl.classList.remove('selected');
+        }
+        state.priorities.push(p.key);
+        el.classList.add('selected');
+      }
+      document.getElementById('btn-next-3').disabled = state.priorities.length === 0;
+    });
+    gridPriority.appendChild(el);
+  });
+
+  /* ---- Step 4: budget ---- */
+  var slider = document.getElementById('budget-slider');
+  var budgetNum = document.getElementById('budget-num');
+  slider.addEventListener('input', function(){
+    state.budget = parseInt(slider.value,10);
+    budgetNum.textContent = state.budget;
+    if (resultsView.classList.contains('active')) renderResults();
+  });
+
+  /* ---- Navigation ---- */
+  function showStep(n){
+    currentStep = n;
+    document.querySelectorAll('.planner-step').forEach(function(s){
+      s.classList.toggle('active', parseInt(s.dataset.step,10) === n);
+    });
+    document.querySelectorAll('.planner-progress-step').forEach(function(s){
+      s.classList.toggle('done', parseInt(s.dataset.step,10) <= n);
+    });
+  }
+  document.getElementById('btn-next-1').addEventListener('click', function(){ showStep(2); });
+  document.getElementById('btn-next-2').addEventListener('click', function(){ showStep(3); });
+  document.getElementById('btn-next-3').addEventListener('click', function(){ showStep(4); });
+  document.querySelectorAll('[data-back]').forEach(function(b){
+    b.addEventListener('click', function(){ showStep(parseInt(b.dataset.back,10)); });
+  });
+  document.getElementById('btn-see-plan').addEventListener('click', function(){
+    wizardView.style.display = 'none';
+    resultsView.classList.add('active');
+    renderResults();
+    window.scrollTo({top:0, behavior:'smooth'});
+    updateUrl();
+  });
+  document.getElementById('btn-adjust').addEventListener('click', function(){
+    resultsView.classList.remove('active');
+    wizardView.style.display = 'block';
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+
+  /* ---- Results rendering ---- */
+  function renderResults(){
+    var picks = plannerBuildPlan(state);
+
+    var chipsEl = document.getElementById('results-chips');
+    chipsEl.innerHTML =
+      '<span>' + (PLANNER_CONCERN_LABEL[state.concern] || 'Your routine') + '</span>' +
+      '<span>' + (state.travel ? 'Travel-friendly picks' : 'Home routine') + '</span>' +
+      '<span>$' + state.budget + ' budget</span>' +
+      (state.priorities.length ? state.priorities.map(function(p){ return '<span>'+PLANNER_PRIORITY_LABEL[p]+'</span>'; }).join('') : '');
+
+    var barsEl = document.getElementById('budget-bars');
+    barsEl.innerHTML = picks.map(function(x){
+      var pct = Math.max(6, Math.round((x.alloc / state.budget) * 100));
+      return '<div class="bd-row">' +
+        '<div class="bd-row-label"><span class="name">'+x.cat.title+'</span><span class="amount">~$'+x.alloc+'</span></div>' +
+        '<div class="bd-track"><div class="bd-fill" style="width:'+pct+'%"></div></div>' +
+      '</div>';
+    }).join('');
+
+    var gridEl = document.getElementById('plan-grid');
+    gridEl.innerHTML = picks.map(function(x){
+      var chips = plannerReasonChips(x, state);
+      var savings = plannerSavingsNote(x);
+      return '<div class="plan-card">' +
+        '<img src="'+x.cat.img+'" alt="'+x.cat.title+'" loading="lazy">' +
+        '<div class="plan-card-body">' +
+          '<div class="plan-card-head"><h4>'+x.cat.title+'</h4><span class="plan-tag tag-'+x.cat.tag+'">'+x.cat.group+'</span></div>' +
+          '<div class="plan-chips">' + chips.map(function(c){ return '<span class="plan-chip">'+c+'</span>'; }).join('') + '</div>' +
+          '<p class="plan-price">Typical range: <strong>$'+x.cat.price[0]+'–$'+x.cat.price[1]+'</strong> · suggested ~$'+x.alloc+' from your budget</p>' +
+          (savings ? '<p class="plan-price" style="font-size:12px;">'+savings+'</p>' : '') +
+          '<a class="buy-btn" href="'+x.cat.slug+'.html">See picks →</a>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+  }
+
+  /* ---- Save / share via URL ---- */
+  function updateUrl(){
+    var params = new URLSearchParams();
+    if (state.concern) params.set('concern', state.concern);
+    params.set('travel', state.travel ? '1' : '0');
+    params.set('pri', state.priorities.join(','));
+    params.set('budget', state.budget);
+    var url = window.location.pathname + '?' + params.toString();
+    window.history.replaceState({}, '', url);
+    return window.location.origin + url;
+  }
+  document.getElementById('btn-save').addEventListener('click', function(){
+    var url = updateUrl();
+    var confirmEl = document.getElementById('save-confirm');
+    if (navigator.clipboard){
+      navigator.clipboard.writeText(url).then(function(){
+        confirmEl.textContent = 'Link copied — save it or come back anytime to check your plan.';
+      }).catch(function(){
+        confirmEl.textContent = 'Your plan link: ' + url;
+      });
+    } else {
+      confirmEl.textContent = 'Your plan link: ' + url;
+    }
+  });
+
+  /* ---- Restore from URL on load ---- */
+  (function restoreFromUrl(){
+    var params = new URLSearchParams(window.location.search);
+    if (!params.has('concern')) return;
+    var concern = params.get('concern');
+    if (!PLANNER_CONCERN_LABEL[concern]) return;
+    state.concern = concern;
+    state.travel = params.get('travel') === '1';
+    state.priorities = (params.get('pri') || '').split(',').filter(function(p){ return PLANNER_PRIORITY_LABEL[p]; }).slice(0,MAX_PRIORITIES);
+    state.budget = parseInt(params.get('budget'),10) || 150;
+
+    var concernEl = gridConcern.querySelector('[data-value="'+concern+'"]');
+    if (concernEl) concernEl.classList.add('selected');
+    var travelEl = gridTravel.querySelector('[data-value="'+(state.travel?'1':'0')+'"]');
+    if (travelEl) travelEl.classList.add('selected');
+    state.priorities.forEach(function(p){
+      var el = gridPriority.querySelector('[data-value="'+p+'"]');
+      if (el) el.classList.add('selected');
+    });
+    slider.value = state.budget;
+    budgetNum.textContent = state.budget;
+
+    wizardView.style.display = 'none';
+    resultsView.classList.add('active');
+    renderResults();
+  })();
+
+  showStep(1);
+})();
+</script>
+</body>
+</html>

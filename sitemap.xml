@@ -86,6 +86,12 @@
   </url>
 
   <url>
+    <loc>https://glowroutinebeauty.com/routine-matcher.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
     <loc>https://glowroutinebeauty.com/about.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
