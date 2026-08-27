@@ -38,7 +38,7 @@ header.site-header{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:18px 0;
+  padding:18px 32px;
   flex-wrap:wrap;
   row-gap:10px;
 }
