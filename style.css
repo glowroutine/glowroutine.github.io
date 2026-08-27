@@ -726,3 +726,147 @@ input[type="range"].planner-range::-moz-range-thumb{
   .planner-teaser-text{text-align:center;}
   .planner-teaser-text p{margin:0 auto;}
 }
+
+/* ============================================================
+   Interactive features: Save/Favorites, Compare, Checklist,
+   Newsletter signup — added for engagement/return-visits.
+   ============================================================ */
+
+/* Buy row becomes a flex wrapper so Save/Compare controls sit
+   next to the existing buy button without changing its own style. */
+.buy-row{display:flex;align-items:center;flex-wrap:wrap;gap:12px;}
+
+/* Save / favorite button */
+.fav-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  background:#fff;border:1.5px solid var(--border);border-radius:10px;
+  padding:10px 16px;font-family:inherit;font-size:13.5px;font-weight:700;
+  color:var(--muted);cursor:pointer;transition:border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+  order:-1;
+}
+.fav-btn:hover{border-color:var(--accent);color:var(--accent-dark);}
+.fav-btn.is-fav{background:#fdf3ee;border-color:var(--accent);color:var(--accent-dark);}
+
+/* Compare checkbox */
+.compare-check-wrap{
+  display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;user-select:none;
+}
+.compare-check-wrap input{width:16px;height:16px;accent-color:var(--accent);cursor:pointer;}
+
+/* Floating compare bar */
+.compare-bar{
+  position:fixed;left:50%;bottom:18px;transform:translate(-50%,120%);
+  background:var(--ink);color:#fff;border-radius:14px;
+  padding:12px 14px 12px 20px;display:flex;align-items:center;gap:16px;
+  box-shadow:0 12px 30px rgba(0,0,0,0.25);z-index:60;
+  transition:transform 0.25s ease;max-width:calc(100vw - 32px);
+}
+.compare-bar.open{transform:translate(-50%,0);}
+.compare-bar-label{font-size:13.5px;font-weight:600;white-space:nowrap;}
+.compare-bar-btn{
+  background:var(--accent);color:#fff;border:none;border-radius:9px;padding:9px 18px;
+  font-family:inherit;font-size:13.5px;font-weight:700;cursor:pointer;white-space:nowrap;
+}
+.compare-bar-btn:hover{filter:brightness(1.08);}
+.compare-bar-clear{
+  background:none;border:none;color:rgba(255,255,255,0.6);font-size:12px;cursor:pointer;text-decoration:underline;padding:0;white-space:nowrap;
+}
+
+/* Compare modal */
+.compare-modal-overlay{
+  position:fixed;inset:0;background:rgba(20,16,12,0.55);z-index:70;
+  display:flex;align-items:center;justify-content:center;padding:20px;
+}
+.compare-modal{
+  background:#fff;border-radius:18px;max-width:900px;width:100%;max-height:85vh;overflow-y:auto;
+  padding:28px;position:relative;
+}
+.compare-modal h3{margin:0 0 18px;font-size:20px;}
+.compare-modal-close{
+  position:absolute;top:16px;right:16px;background:var(--bg);border:none;border-radius:50%;
+  width:34px;height:34px;font-size:18px;cursor:pointer;color:var(--muted);line-height:1;
+}
+.compare-modal-close:hover{color:var(--ink);}
+.compare-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;}
+.compare-col{border:1px solid var(--border);border-radius:14px;padding:18px;}
+.compare-col h4{font-size:15px;margin:0 0 10px;line-height:1.35;}
+.compare-col p{font-size:13px;color:var(--muted);margin:10px 0 16px;}
+.compare-col .buy-btn{padding:9px 18px;font-size:13px;}
+
+/* Global reusable tier badge (mirrors .compare-table .mini-tag) */
+.mini-tag{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.3px;padding:3px 9px;border-radius:20px;}
+.mini-tag.low{background:#e8f0e8;color:#2f6039;}
+.mini-tag.mid{background:#eef4fb;color:#2f5f9e;}
+.mini-tag.high{background:#fff6ea;color:#8a5c0c;}
+
+/* Checklist on plan cards */
+.plan-check-wrap{
+  display:flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;color:var(--muted);
+  margin-top:12px;cursor:pointer;user-select:none;
+}
+.plan-check-wrap input{width:15px;height:15px;accent-color:var(--accent);cursor:pointer;}
+.plan-card.is-bought{opacity:0.55;}
+.plan-card.is-bought .plan-card-head h4{text-decoration:line-through;}
+
+/* Newsletter signup block */
+.newsletter-block{
+  background:linear-gradient(135deg, var(--card), var(--bg));
+  border:1px solid var(--border);border-radius:18px;
+  padding:28px 30px;margin:40px 0;text-align:center;
+}
+.newsletter-block h3{font-size:19px;margin:0 0 8px;}
+.newsletter-block p{color:var(--muted);font-size:13.5px;margin:0 0 18px;max-width:480px;margin-left:auto;margin-right:auto;}
+.newsletter-form{display:flex;gap:10px;max-width:420px;margin:0 auto;flex-wrap:wrap;justify-content:center;}
+.newsletter-form input[type="email"]{
+  flex:1;min-width:200px;padding:12px 16px;border-radius:10px;border:1.5px solid var(--border);
+  font-family:inherit;font-size:14px;color:var(--ink);
+}
+.newsletter-form input[type="email"]:focus{outline:none;border-color:var(--accent);}
+.newsletter-form button{
+  background:linear-gradient(135deg, var(--accent), var(--accent-dark));color:#fff;border:none;
+  border-radius:10px;padding:12px 22px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;
+  transition:transform 0.15s ease, filter 0.15s ease;
+}
+.newsletter-form button:hover{transform:translateY(-2px);filter:brightness(1.05);}
+.newsletter-form button:disabled{opacity:0.6;cursor:not-allowed;transform:none;}
+.newsletter-msg{font-size:12.5px;color:#2f6039;font-weight:600;margin-top:12px;min-height:16px;}
+
+/* Favorites page */
+.fav-hero{text-align:center;padding:34px 0 8px;}
+.fav-hero h1{font-size:28px;margin:0 0 8px;}
+.fav-hero p{color:var(--muted);font-size:14.5px;margin:0;}
+.favorites-empty{
+  text-align:center;color:var(--muted);font-size:14.5px;background:var(--card);
+  border:1px dashed var(--border);border-radius:16px;padding:40px 20px;margin:24px 0;
+}
+.favorites-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin:24px 0 40px;}
+.fav-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px 20px;}
+.fav-card h4{font-size:15px;margin:10px 0 6px;line-height:1.35;}
+.fav-card .fav-context{font-size:13px;color:var(--muted);margin:0 0 10px;}
+.fav-card .fav-source{font-size:12px;color:var(--muted);margin:0 0 14px;}
+.fav-card .fav-source a{color:var(--accent-dark);font-weight:600;text-decoration:underline;}
+.fav-card-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+.fav-card .buy-btn{padding:9px 18px;font-size:13px;display:inline-block;}
+.fav-remove{background:none;border:none;color:var(--muted);font-size:12.5px;cursor:pointer;text-decoration:underline;padding:0;}
+.fav-remove:hover{color:#b0392f;}
+
+@media print{
+  header.site-header, footer.site-footer, .disclosure-banner, .newsletter-block,
+  .planner-actions, .compare-bar, .fav-btn, .compare-check-wrap, .plan-check-wrap,
+  .mobile-menu-btn, .wizard-view, #wizard-view{display:none !important;}
+  body{background:#fff;}
+  .plan-card{break-inside:avoid;box-shadow:none;border:1px solid #ccc;}
+  .plan-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+}
+
+@media (max-width:640px){
+  .compare-cols{grid-template-columns:1fr;}
+  .compare-modal{padding:22px 18px;}
+  .newsletter-form{flex-direction:column;}
+  .newsletter-form input[type="email"]{width:100%;}
+  .newsletter-form button{width:100%;}
+  .newsletter-block{padding:24px 18px;}
+  .compare-bar{left:16px;right:16px;transform:translateX(0) translateY(120%);width:auto;}
+  .compare-bar.open{transform:translateX(0) translateY(0);}
+  .fav-btn{padding:9px 13px;font-size:13px;}
+}

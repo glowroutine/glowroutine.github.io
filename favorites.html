@@ -13,11 +13,15 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Affiliate Disclosure — GlowRoutine</title>
-<meta name="description" content="GlowRoutine's affiliate disclosure — how the site is a participant in the Amazon Associates program and how that shapes what we recommend.">
+<title>Your Saved Picks — GlowRoutine</title>
+<meta name="description" content="Every product you've saved with the ♡ button across GlowRoutine, in one place — kept right in your browser, no account needed.">
 <link rel="stylesheet" href="style.css?v=8">
 </head>
 <body>
+
+<div class="disclosure-banner">
+  Contains affiliate links — we may earn a commission at no cost to you. <a href="affiliate-disclosure.html" aria-label="Learn more about our affiliate disclosure">Learn more</a>
+</div>
 
 <header class="site-header">
   <div class="container header-inner">
@@ -47,19 +51,25 @@
   </div>
 </div>
       <a href="routine-matcher.html">Routine Matcher</a>
-      <a href="favorites.html">Saved</a>
+      <a href="favorites.html" style="color:var(--accent-dark);">Saved</a>
       <a href="tips-and-guides.html">Tips &amp; Guides</a>
+      <a href="affiliate-disclosure.html">Disclosure</a>
       <a href="about.html">About</a>
     </nav>
   </div>
 </header>
 
-<main class="container" style="max-width:720px; padding-top:40px; padding-bottom:60px;">
-  <h1>Affiliate Disclosure</h1>
-  <p>GlowRoutine is a participant in the Amazon Services LLC Associates Program, an affiliate advertising program designed to provide a means for sites to earn advertising fees by advertising and linking to Amazon.com. As an Amazon Associate, we earn from qualifying purchases — at no additional cost to you.</p>
-  <p>We only recommend products we believe genuinely help with skincare, hair care, or makeup and beauty organization. Our opinions and recommendations are our own; commission never determines which product we call the "best pick" in a guide.</p>
-  <p>Product links on this site are typically marked or styled as "Check price on Amazon" buttons. When you click one and make a qualifying purchase, we may earn a small commission. Prices and availability shown on Amazon are accurate as of the date indicated on each guide and are subject to change.</p>
-  <p><em>Last updated: August 2026.</em></p>
+<main class="article-body">
+  <div class="fav-hero">
+    <h1>Your saved picks</h1>
+    <p>Everything you've tapped &#9825; Save on, kept right here in this browser — no account, no login.</p>
+  </div>
+
+  <div class="favorites-empty" id="favorites-empty">
+    Nothing saved yet. Browse any guide and tap <strong>&#9825; Save</strong> next to a pick you like — or try the <a href="routine-matcher.html">Routine Matcher</a> to get a full personalized plan.
+  </div>
+
+  <div class="favorites-grid" id="favorites-list"></div>
 </main>
 
 <div class="newsletter-block">

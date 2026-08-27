@@ -92,6 +92,12 @@
   </url>
 
   <url>
+    <loc>https://glowroutinebeauty.com/favorites.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
+  <url>
     <loc>https://glowroutinebeauty.com/about.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>

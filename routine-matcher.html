@@ -15,7 +15,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Smart Routine Matcher — Get a Personalized Beauty Routine — GlowRoutine</title>
 <meta name="description" content="Answer 4 quick questions about your focus, your budget and whether you need travel-friendly picks — get a personalized routine plan matched to your situation.">
-<link rel="stylesheet" href="style.css?v=7">
+<link rel="stylesheet" href="style.css?v=8">
 </head>
 <body>
 
@@ -51,6 +51,7 @@
   </div>
 </div>
       <a href="routine-matcher.html" style="color:var(--accent-dark);">Routine Matcher</a>
+      <a href="favorites.html">Saved</a>
       <a href="tips-and-guides.html">Tips &amp; Guides</a>
       <a href="affiliate-disclosure.html">Disclosure</a>
       <a href="about.html">About</a>
@@ -143,12 +144,25 @@
 
     <div class="planner-actions">
       <button class="planner-btn secondary" id="btn-adjust">Adjust my answers</button>
+      <button class="planner-btn secondary" id="btn-print">Print / Save as PDF</button>
       <button class="planner-btn primary" id="btn-save">Save / share this plan</button>
     </div>
     <div class="save-confirm" id="save-confirm"></div>
   </div>
 
 </main>
+
+<div class="newsletter-block">
+  <h3>Get new guides &amp; deals in your inbox</h3>
+  <p>No spam — just the occasional heads-up when we add a new guide or spot a real price drop on something in the Routine Matcher.</p>
+  <form class="newsletter-form" action="https://formsubmit.co/ajax/albertzsoltszakacs1978@gmail.com" method="POST">
+    <input type="hidden" name="_subject" value="New GlowRoutine subscriber">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="email" name="email" placeholder="you@email.com" required>
+    <button type="submit">Sign me up</button>
+  </form>
+  <div class="newsletter-msg"></div>
+</div>
 
 <footer class="site-footer">
   <div class="container footer-inner">
@@ -161,6 +175,7 @@
 </footer>
 
 <script src="planner-data.js"></script>
+<script src="interactive.js?v=1"></script>
 <script>
 (function(){
   var btn = document.querySelector('.nav-dropdown-btn');
@@ -293,6 +308,9 @@
     wizardView.style.display = 'block';
     window.scrollTo({top:0, behavior:'smooth'});
   });
+  document.getElementById('btn-print').addEventListener('click', function(){
+    window.print();
+  });
 
   /* ---- Results rendering ---- */
   function renderResults(){
@@ -318,7 +336,7 @@
     gridEl.innerHTML = picks.map(function(x){
       var chips = plannerReasonChips(x, state);
       var savings = plannerSavingsNote(x);
-      return '<div class="plan-card">' +
+      return '<div class="plan-card" data-slug="'+x.cat.slug+'">' +
         '<img src="'+x.cat.img+'" alt="'+x.cat.title+'" loading="lazy">' +
         '<div class="plan-card-body">' +
           '<div class="plan-card-head"><h4>'+x.cat.title+'</h4><span class="plan-tag tag-'+x.cat.tag+'">'+x.cat.group+'</span></div>' +
@@ -329,6 +347,7 @@
         '</div>' +
       '</div>';
     }).join('');
+    if (window.GlowTools) window.GlowTools.initChecklistForGrid(gridEl);
   }
 
   /* ---- Save / share via URL ---- */
