@@ -115,4 +115,34 @@
     <priority>0.3</priority>
   </url>
 
+
+  <url>
+    <loc>https://glowroutinebeauty.com/skincare-tech-routine-guide.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://glowroutinebeauty.com/hair-heat-damage-prevention-guide.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://glowroutinebeauty.com/makeup-organization-system-guide.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://glowroutinebeauty.com/at-home-self-care-ritual-guide.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://glowroutinebeauty.com/faq.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
 </urlset>
