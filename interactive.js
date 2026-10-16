@@ -334,20 +334,19 @@
         canvas.height = Math.max(1, Math.round(h * dpr));
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       }
+      function waveOffset(x, t){
+        return Math.sin(x * 0.011 + t * 1.15) * (h * 0.11)
+             + Math.sin(x * 0.024 - t * 0.8) * (h * 0.05);
+      }
       function seed(){
         particles = [];
         var N = 110;
         for (var i = 0; i < N; i++) {
-          var ang = rand(-0.95, -0.15);
-          var spd = rand(20, 45);
           particles.push({
             x: Math.random() * w,
-            y: Math.random() * h,
-            vx: Math.cos(ang) * spd,
-            vy: Math.sin(ang) * spd,
+            y0: Math.random() * h,
+            vx: rand(10, 22) * (Math.random() < 0.5 ? -1 : 1),
             phase: Math.random() * Math.PI * 2,
-            wobbleAmp: rand(4, 14),
-            wobbleFreq: rand(0.25, 0.8),
             size: rand(0.8, 2),
             color: colors[Math.floor(Math.random() * colors.length)],
             baseAlpha: rand(0.25, 0.7)
@@ -370,17 +369,13 @@
           var p = particles[i];
           if (!reduceMotion) {
             p.x += p.vx * dt;
-            p.y += p.vy * dt;
             if (p.x > w + margin) p.x = -margin;
             if (p.x < -margin) p.x = w + margin;
-            if (p.y > h + margin) p.y = -margin;
-            if (p.y < -margin) p.y = h + margin;
           }
-          var wobX = reduceMotion ? 0 : Math.sin(time * p.wobbleFreq + p.phase) * p.wobbleAmp * 0.4;
-          var wobY = reduceMotion ? 0 : Math.cos(time * p.wobbleFreq * 0.8 + p.phase) * p.wobbleAmp;
-          var dx = p.x + wobX, dy = p.y + wobY;
-          if (dx < -25 || dx > w + 25 || dy < -25 || dy > h + 25) continue;
-          var flicker = reduceMotion ? 1 : (0.6 + 0.4 * Math.sin(time * 2 + p.phase * 3));
+          var dx = p.x;
+          var dy = p.y0 + (reduceMotion ? 0 : waveOffset(dx, time));
+          if (dy < -25 || dy > h + 25) continue;
+          var flicker = reduceMotion ? 1 : (0.6 + 0.4 * Math.sin(time * 2.2 + p.phase * 3));
           ctx.beginPath();
           ctx.fillStyle = p.color;
           ctx.shadowColor = p.color;
