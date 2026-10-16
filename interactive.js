@@ -336,8 +336,8 @@
       }
       var path = null;
       function buildPath(){
-        var start = { x: -0.08 * w, y: h * 1.15 };
-        var end = { x: w * 1.08, y: -0.15 * h };
+        var start = { x: w * 0.5, y: -0.2 * h };
+        var end = { x: w * 0.5, y: h * 1.25 };
         var dv = { x: end.x - start.x, y: end.y - start.y };
         var len = Math.sqrt(dv.x * dv.x + dv.y * dv.y) || 1;
         var dirUnit = { x: dv.x / len, y: dv.y / len };
@@ -379,16 +379,17 @@
             if (p.s > 1) p.s -= 1;
           }
           var s = p.s;
-          var centerLateral = Math.sin(s * Math.PI * 2 * 1.4 - time * 0.15) * (h * 0.33);
-          var lateral = centerLateral + p.jitter * (h * 0.16);
+          var centerLateral = Math.sin(s * Math.PI * 2 * 1.4 - time * 0.4) * (w * 0.16);
+          var lateral = centerLateral + p.jitter * (w * 0.07);
           var px = path.start.x + path.dirUnit.x * (s * path.length) + path.perp.x * lateral;
           var py = path.start.y + path.dirUnit.y * (s * path.length) + path.perp.y * lateral;
           if (px < -15 || px > w + 15 || py < -15 || py > h + 15) continue;
           var edgeFade = Math.max(0, 1 - Math.abs(p.jitter));
+          var approach = 0.45 + 0.85 * s;
           var flicker = reduceMotion ? 1 : (0.65 + 0.35 * Math.sin(time * 2.2 + p.phase * 3));
-          var alpha = p.alphaMax * edgeFade * flicker;
+          var alpha = p.alphaMax * edgeFade * flicker * Math.min(1, approach);
           if (alpha <= 0.02) continue;
-          var size = p.size * (0.55 + 0.45 * edgeFade);
+          var size = p.size * (0.55 + 0.45 * edgeFade) * approach;
           ctx.beginPath();
           ctx.fillStyle = p.color;
           ctx.shadowColor = p.color;
