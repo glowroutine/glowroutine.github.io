@@ -446,13 +446,11 @@
           if (!reduceMotion) { o.u += o.speed * dt / w; if (o.u > 1) o.u -= 1; }
           var ox = o.u * w;
           var oy = centerY(ox, time) + o.offset + (reduceMotion ? 0 : Math.sin(time * o.wobbleSpeed + o.wobblePhase) * o.wobbleAmp);
-          ctx.beginPath();
-          ctx.fillStyle = o.color;
-          ctx.shadowColor = o.color;
-          ctx.shadowBlur = o.size * 4;
-          ctx.globalAlpha = o.alphaMax * edgeFade(o.u);
-          ctx.arc(ox, oy, o.size, 0, Math.PI * 2);
-          ctx.fill();
+          var oAlpha = o.alphaMax * edgeFade(o.u);
+          if (oAlpha <= 0.02) continue;
+          var or = o.size * 2.4;
+          ctx.globalAlpha = oAlpha;
+          ctx.drawImage(sprites[o.color], ox - or, oy - or, or * 2, or * 2);
         }
 
         for (var i = 0; i < particles.length; i++) {
@@ -464,17 +462,12 @@
           var twinkle = reduceMotion ? 1 : (0.7 + 0.3 * Math.sin(time * 2.4 + pt.wobblePhase * 3));
           var alpha = pt.alphaMax * edgeFade(pt.u) * twinkle;
           if (alpha <= 0.03) continue;
-          ctx.beginPath();
-          ctx.fillStyle = pt.color;
-          ctx.shadowColor = pt.color;
-          ctx.shadowBlur = pt.size * 2.6;
+          var pr = pt.size * 2.8;
           ctx.globalAlpha = alpha;
-          ctx.arc(x, y, pt.size, 0, Math.PI * 2);
-          ctx.fill();
+          ctx.drawImage(sprites[pt.color], x - pr, y - pr, pr * 2, pr * 2);
         }
 
         ctx.globalCompositeOperation = 'source-over';
-        ctx.shadowBlur = 0;
         ctx.globalAlpha = 1;
         if (!reduceMotion) time += dt;
         if (!reduceMotion) requestAnimationFrame(frame);
