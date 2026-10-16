@@ -319,13 +319,14 @@
     var canvases = document.querySelectorAll('.hero-wave-sm');
     if(!canvases.length) return;
     var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var lineColors = ['#fff3dc', '#ffe3bd', '#ffd49a', '#fff7ec'];
+    var colors = ['#fff6e6', '#ffe3bd', '#ffd49a', '#ffffff', '#fff1d6'];
 
     canvases.forEach(function(canvas){
       if(!canvas.getContext) return;
       var ctx = canvas.getContext('2d');
-      var w = 0, h = 0, dpr = 1, lines = [];
+      var w = 0, h = 0, dpr = 1, band, particles, orbs, bandHalfWidth;
       function rand(min, max){ return min + Math.random() * (max - min); }
+      function randG(){ return (Math.random() + Math.random() + Math.random() - 1.5) / 1.5; }
       function resize(){
         dpr = Math.min(window.devicePixelRatio || 1, 2);
         var rect = canvas.getBoundingClientRect();
@@ -334,81 +335,139 @@
         canvas.height = Math.max(1, Math.round(h * dpr));
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       }
-      function buildLines(){
-        lines = [];
-        var count = Math.max(4, Math.round(h / 46));
+      function buildBand(){
+        band = {
+          amp: h * 0.16,
+          cycles: rand(0.9, 1.3),
+          phase: rand(0, Math.PI * 2),
+          speed: 0.32,
+          baseY: h * 0.52,
+          driftAmp: h * 0.1,
+          driftSpeed: rand(0.11, 0.17),
+          driftPhase: rand(0, Math.PI * 2),
+          k2: rand(0.7, 1.6),
+          k2phase: rand(0, Math.PI * 2)
+        };
+      }
+      function centerY(x, t){
+        var k = band.cycles * Math.PI * 2 / w;
+        return band.baseY
+          + Math.sin(x * k + band.phase + t * band.speed) * band.amp
+          + Math.sin(t * band.driftSpeed + band.driftPhase) * band.driftAmp;
+      }
+      function thickness(x, t){
+        var k2 = band.k2 * Math.PI * 2 / w;
+        return 0.55 + 0.45 * Math.sin(x * k2 + band.k2phase + t * 0.2);
+      }
+      function buildParticles(){
+        bandHalfWidth = h * 0.27;
+        particles = [];
+        var count = Math.max(180, Math.round((w * h) / 1350));
         for (var i = 0; i < count; i++) {
-          lines.push({
-            baseY: h * ((i + 0.5) / count),
-            amp: h * rand(0.03, 0.065),
-            cycles: rand(1.3, 2.6),
-            phase: rand(0, Math.PI * 2),
-            speed: rand(0.45, 1.0) * (Math.random() < 0.5 ? -1 : 1),
-            amp2: h * rand(0.008, 0.022),
-            cycles2: rand(3.2, 5.5),
-            phase2: rand(0, Math.PI * 2),
-            speed2: rand(0.8, 1.6),
-            color: lineColors[i % lineColors.length],
-            alpha: rand(0.35, 0.65),
-            glints: [rand(0, 1), rand(0, 1)].map(function(t0){
-              return { t: t0, speed: rand(0.05, 0.1) };
-            })
+          particles.push({
+            u: Math.random(),
+            speed: rand(22, 70),
+            offset: randG() * bandHalfWidth,
+            wobbleAmp: rand(2, 7),
+            wobbleSpeed: rand(0.4, 1.1),
+            wobblePhase: rand(0, Math.PI * 2),
+            size: rand(0.7, 1.9),
+            color: colors[Math.floor(Math.random() * colors.length)],
+            alphaMax: rand(0.5, 0.95)
+          });
+        }
+        orbs = [];
+        var ocount = Math.max(6, Math.round(w / 160));
+        for (var j = 0; j < ocount; j++) {
+          orbs.push({
+            u: Math.random(),
+            speed: rand(10, 22),
+            offset: randG() * bandHalfWidth * 0.7,
+            size: rand(4, 7.5),
+            color: colors[Math.floor(Math.random() * colors.length)],
+            alphaMax: rand(0.3, 0.55),
+            wobbleAmp: rand(3, 7),
+            wobbleSpeed: rand(0.2, 0.5),
+            wobblePhase: rand(0, Math.PI * 2)
           });
         }
       }
       resize();
-      buildLines();
-      window.addEventListener('resize', function(){ resize(); buildLines(); });
+      buildBand();
+      buildParticles();
+      window.addEventListener('resize', function(){ resize(); buildBand(); buildParticles(); });
 
-      function lineY(line, x, t){
-        var k = line.cycles * Math.PI * 2 / w;
-        var k2 = line.cycles2 * Math.PI * 2 / w;
-        return line.baseY
-          + Math.sin(x * k + line.phase + t * line.speed) * line.amp
-          + Math.sin(x * k2 + line.phase2 + t * line.speed2) * line.amp2;
+      function edgeFade(u){
+        var e = 0.06;
+        if (u < e) return u / e;
+        if (u > 1 - e) return (1 - u) / e;
+        return 1;
       }
 
-      var time = 0, lastT = null, midIdx;
+      var time = 0, lastT = null;
       function frame(ts){
         if (w === 0 || h === 0) { if (!reduceMotion) requestAnimationFrame(frame); return; }
         if (lastT === null) lastT = ts;
         var dt = Math.min((ts - lastT) / 1000, 0.05);
         lastT = ts;
         ctx.clearRect(0, 0, w, h);
-        midIdx = (lines.length - 1) / 2 || 1;
-        var step = Math.max(4, Math.round(w / 160));
-        for (var li = 0; li < lines.length; li++) {
-          var line = lines[li];
-          var depthFade = 1 - 0.45 * Math.abs((li - midIdx) / (midIdx || 1));
-          ctx.beginPath();
-          for (var x = 0; x <= w; x += step) {
-            var y = lineY(line, x, time);
-            if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
-          }
-          ctx.strokeStyle = line.color;
-          ctx.shadowColor = line.color;
-          ctx.shadowBlur = 5;
-          ctx.lineWidth = 1.3;
-          ctx.globalAlpha = line.alpha * depthFade;
-          ctx.stroke();
 
-          if (!reduceMotion) {
-            for (var gi = 0; gi < line.glints.length; gi++) {
-              var g = line.glints[gi];
-              g.t += g.speed * dt;
-              if (g.t > 1) g.t -= 1;
-              var gx = g.t * w;
-              var gy = lineY(line, gx, time);
-              var twinkle = 0.6 + 0.4 * Math.sin(time * 3 + g.t * 10 + li);
-              ctx.beginPath();
-              ctx.fillStyle = line.color;
-              ctx.shadowBlur = 8;
-              ctx.globalAlpha = Math.min(1, line.alpha * 1.4 * depthFade) * twinkle;
-              ctx.arc(gx, gy, 1.7, 0, Math.PI * 2);
-              ctx.fill();
-            }
+        ctx.save();
+        var steps = Math.max(6, Math.round(w / 50));
+        var passes = [
+          { wMul: 1.9, a: 0.08 },
+          { wMul: 1.3, a: 0.13 },
+          { wMul: 0.8, a: 0.17 }
+        ];
+        for (var p = 0; p < passes.length; p++) {
+          ctx.beginPath();
+          for (var si = 0; si <= steps; si++) {
+            var sx = (si / steps) * w;
+            var sy = centerY(sx, time);
+            if (si === 0) ctx.moveTo(sx, sy); else ctx.lineTo(sx, sy);
           }
+          ctx.strokeStyle = 'rgba(20,8,14,' + passes[p].a + ')';
+          ctx.lineWidth = bandHalfWidth * 2 * passes[p].wMul;
+          ctx.lineCap = 'round';
+          ctx.stroke();
         }
+        ctx.restore();
+
+        ctx.globalCompositeOperation = 'lighter';
+
+        for (var oi = 0; oi < orbs.length; oi++) {
+          var o = orbs[oi];
+          if (!reduceMotion) { o.u += o.speed * dt / w; if (o.u > 1) o.u -= 1; }
+          var ox = o.u * w;
+          var oy = centerY(ox, time) + o.offset + (reduceMotion ? 0 : Math.sin(time * o.wobbleSpeed + o.wobblePhase) * o.wobbleAmp);
+          ctx.beginPath();
+          ctx.fillStyle = o.color;
+          ctx.shadowColor = o.color;
+          ctx.shadowBlur = o.size * 4;
+          ctx.globalAlpha = o.alphaMax * edgeFade(o.u);
+          ctx.arc(ox, oy, o.size, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        for (var i = 0; i < particles.length; i++) {
+          var pt = particles[i];
+          if (!reduceMotion) { pt.u += pt.speed * dt / w; if (pt.u > 1) pt.u -= 1; }
+          var x = pt.u * w;
+          var th = thickness(x, time);
+          var y = centerY(x, time) + pt.offset * th + (reduceMotion ? 0 : Math.sin(time * pt.wobbleSpeed + pt.wobblePhase) * pt.wobbleAmp);
+          var twinkle = reduceMotion ? 1 : (0.7 + 0.3 * Math.sin(time * 2.4 + pt.wobblePhase * 3));
+          var alpha = pt.alphaMax * edgeFade(pt.u) * twinkle;
+          if (alpha <= 0.03) continue;
+          ctx.beginPath();
+          ctx.fillStyle = pt.color;
+          ctx.shadowColor = pt.color;
+          ctx.shadowBlur = pt.size * 2.6;
+          ctx.globalAlpha = alpha;
+          ctx.arc(x, y, pt.size, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        ctx.globalCompositeOperation = 'source-over';
         ctx.shadowBlur = 0;
         ctx.globalAlpha = 1;
         if (!reduceMotion) time += dt;
