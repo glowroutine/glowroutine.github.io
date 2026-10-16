@@ -37,14 +37,24 @@ var PLANNER_CATEGORIES = [
     img:"recovery-wellness-tech-for-women.jpg" },
   { slug:"designer-perfume-organizers-atomizer-sets", title:"Designer Perfume Organizers & Atomizer Sets", group:"Bath & Wellness", tag:"bath",
     concern:["bath"], context:["home","travel"], priority:["organization","luxury"], price:[20,60],
-    img:"designer-perfume-organizers-atomizer-sets.jpg" }
+    img:"designer-perfume-organizers-atomizer-sets.jpg" },
+  { slug:"uv-led-gel-nail-lamps", title:"UV/LED Gel Nail Lamps & Curing Tools", group:"Nail Care", tag:"nails",
+    concern:["nails"], context:["home"], priority:["results","convenience"], price:[15,60],
+    img:"https://images.unsplash.com/photo-1763987300719-fd27c51a3227?w=600&q=80&auto=format&fit=crop" },
+  { slug:"electric-nail-files-manicure-drill-kits", title:"Electric Nail Files & Manicure Drill Kits", group:"Nail Care", tag:"nails",
+    concern:["nails"], context:["home","travel"], priority:["convenience","results"], price:[15,45],
+    img:"https://images.unsplash.com/photo-1457972729786-0411a3b2b626?w=600&q=80&auto=format&fit=crop" },
+  { slug:"press-on-nails-manicure-kits", title:"Press-On Nails & At-Home Manicure Kits", group:"Nail Care", tag:"nails",
+    concern:["nails"], context:["home","travel"], priority:["convenience","organization"], price:[10,35],
+    img:"https://images.unsplash.com/photo-1655370865452-269cef0b1b85?w=600&q=80&auto=format&fit=crop" }
 ];
 
 var PLANNER_CONCERNS = [
   { key:"skincare", label:"Skin & anti-aging", icon:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" /> <path d="M20 2v4" /> <path d="M22 4h-4" /> <circle cx="4" cy="20" r="2" /> </svg>' },
   { key:"hair", label:"Hair styling & health", icon:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="6" cy="6" r="3" /> <path d="M8.12 8.12 12 12" /> <path d="M20 4 8.12 15.88" /> <circle cx="6" cy="18" r="3" /> <path d="M14.8 14.8 20 20" /> </svg>' },
   { key:"makeup", label:"Makeup & vanity", icon:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z" /> <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" /> <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" /> <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" /> <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" /> </svg>' },
-  { key:"bath", label:"Bath, relaxation & recovery", icon:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M10 4 8 6" /> <path d="M17 19v2" /> <path d="M2 12h20" /> <path d="M7 19v2" /> <path d="M9 5 7.621 3.621A2.121 2.121 0 0 0 4 5v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5" /> </svg>' }
+  { key:"bath", label:"Bath, relaxation & recovery", icon:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M10 4 8 6" /> <path d="M17 19v2" /> <path d="M2 12h20" /> <path d="M7 19v2" /> <path d="M9 5 7.621 3.621A2.121 2.121 0 0 0 4 5v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5" /> </svg>' },
+  { key:"nails", label:"Nail care & manicures", icon:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M9 2h6" /> <path d="M10 2v4.2a2 2 0 0 1-.4 1.2L7.1 10.9A4 4 0 0 0 6.3 13.3L6 20a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l-.3-6.7a4 4 0 0 0-.8-2.4l-2.5-3.5a2 2 0 0 1-.4-1.2V2" /> </svg>' }
 ];
 
 var PLANNER_PRIORITIES = [
