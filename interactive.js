@@ -319,12 +319,12 @@
     var canvases = document.querySelectorAll('.hero-wave-sm');
     if(!canvases.length) return;
     var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var colors = ['#fff6e6', '#ffd9a8', '#ffffff', '#ffe3c2'];
+    var lineColors = ['#fff3dc', '#ffe3bd', '#ffd49a', '#fff7ec'];
 
     canvases.forEach(function(canvas){
       if(!canvas.getContext) return;
       var ctx = canvas.getContext('2d');
-      var w = 0, h = 0, dpr = 1, particles = [];
+      var w = 0, h = 0, dpr = 1, lines = [];
       function rand(min, max){ return min + Math.random() * (max - min); }
       function resize(){
         dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -334,77 +334,84 @@
         canvas.height = Math.max(1, Math.round(h * dpr));
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       }
-      function randG(){ return (Math.random() + Math.random() + Math.random() - 1.5) / 1.5; }
-      function smooth(e0, e1, x){ var t = Math.min(1, Math.max(0, (x - e0) / (e1 - e0))); return t * t * (3 - 2 * t); }
-      var N = 80;
-      function makeParticle(){
-        return {
-          s: Math.random(),
-          speed: rand(0.16, 0.32),
-          jitterX: randG(),
-          jitterY: randG(),
-          size: rand(0.8, 1.8),
-          color: colors[Math.floor(Math.random() * colors.length)],
-          alphaMax: rand(0.5, 0.95)
-        };
-      }
-      function seed(){
-        particles = [];
-        for (var i = 0; i < N; i++) particles.push(makeParticle());
+      function buildLines(){
+        lines = [];
+        var count = Math.max(4, Math.round(h / 46));
+        for (var i = 0; i < count; i++) {
+          lines.push({
+            baseY: h * ((i + 0.5) / count),
+            amp: h * rand(0.03, 0.065),
+            cycles: rand(1.3, 2.6),
+            phase: rand(0, Math.PI * 2),
+            speed: rand(0.45, 1.0) * (Math.random() < 0.5 ? -1 : 1),
+            amp2: h * rand(0.008, 0.022),
+            cycles2: rand(3.2, 5.5),
+            phase2: rand(0, Math.PI * 2),
+            speed2: rand(0.8, 1.6),
+            color: lineColors[i % lineColors.length],
+            alpha: rand(0.35, 0.65),
+            glints: [rand(0, 1), rand(0, 1)].map(function(t0){
+              return { t: t0, speed: rand(0.05, 0.1) };
+            })
+          });
+        }
       }
       resize();
-      seed();
-      window.addEventListener('resize', function(){ resize(); seed(); });
+      buildLines();
+      window.addEventListener('resize', function(){ resize(); buildLines(); });
 
-      var time = 0, lastT = null;
+      function lineY(line, x, t){
+        var k = line.cycles * Math.PI * 2 / w;
+        var k2 = line.cycles2 * Math.PI * 2 / w;
+        return line.baseY
+          + Math.sin(x * k + line.phase + t * line.speed) * line.amp
+          + Math.sin(x * k2 + line.phase2 + t * line.speed2) * line.amp2;
+      }
+
+      var time = 0, lastT = null, midIdx;
       function frame(ts){
         if (w === 0 || h === 0) { if (!reduceMotion) requestAnimationFrame(frame); return; }
         if (lastT === null) lastT = ts;
         var dt = Math.min((ts - lastT) / 1000, 0.05);
         lastT = ts;
         ctx.clearRect(0, 0, w, h);
-        var cx = w * 0.5, cy = h * 0.55;
-        var focal = h * 1.05;
-        var zFar = h * 2.3, zNear = h * 0.16;
-        var maxSize = h * 0.09;
-        for (var i = 0; i < particles.length; i++) {
-          var p = particles[i];
+        midIdx = (lines.length - 1) / 2 || 1;
+        var step = Math.max(4, Math.round(w / 160));
+        for (var li = 0; li < lines.length; li++) {
+          var line = lines[li];
+          var depthFade = 1 - 0.45 * Math.abs((li - midIdx) / (midIdx || 1));
+          ctx.beginPath();
+          for (var x = 0; x <= w; x += step) {
+            var y = lineY(line, x, time);
+            if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+          }
+          ctx.strokeStyle = line.color;
+          ctx.shadowColor = line.color;
+          ctx.shadowBlur = 5;
+          ctx.lineWidth = 1.3;
+          ctx.globalAlpha = line.alpha * depthFade;
+          ctx.stroke();
+
           if (!reduceMotion) {
-            p.s += p.speed * dt;
-            if (p.s >= 1) {
-              var np = makeParticle();
-              np.s = 0;
-              particles[i] = np;
-              p = np;
+            for (var gi = 0; gi < line.glints.length; gi++) {
+              var g = line.glints[gi];
+              g.t += g.speed * dt;
+              if (g.t > 1) g.t -= 1;
+              var gx = g.t * w;
+              var gy = lineY(line, gx, time);
+              var twinkle = 0.6 + 0.4 * Math.sin(time * 3 + g.t * 10 + li);
+              ctx.beginPath();
+              ctx.fillStyle = line.color;
+              ctx.shadowBlur = 8;
+              ctx.globalAlpha = Math.min(1, line.alpha * 1.4 * depthFade) * twinkle;
+              ctx.arc(gx, gy, 1.7, 0, Math.PI * 2);
+              ctx.fill();
             }
           }
-          var s = p.s;
-          var centerX = Math.sin(s * Math.PI * 2 * 1.3 - time * 0.5) * (h * 0.6);
-          var centerY = Math.cos(s * Math.PI * 2 * 0.8 - time * 0.35) * (h * 0.22);
-          var worldX = centerX + p.jitterX * (h * 0.2);
-          var worldY = centerY + p.jitterY * (h * 0.13);
-          var z = zNear + (zFar - zNear) * (1 - s);
-          var scale = focal / z;
-          var px = cx + worldX * scale;
-          var py = cy + worldY * scale;
-          var size = Math.min(p.size * scale, maxSize);
-          if (px < -size - 10 || px > w + size + 10 || py < -size - 10 || py > h + size + 10) continue;
-          var edgeFade = Math.max(0, 1 - Math.sqrt(p.jitterX * p.jitterX + p.jitterY * p.jitterY) / 1.5);
-          var envelope = smooth(0, 0.1, s) * (1 - smooth(0.88, 1, s));
-          var flicker = reduceMotion ? 1 : (0.75 + 0.25 * Math.sin(time * 3 + s * 20));
-          var alpha = p.alphaMax * edgeFade * flicker * (reduceMotion ? 1 : envelope);
-          if (alpha <= 0.02 || size <= 0.15) continue;
-          ctx.beginPath();
-          ctx.fillStyle = p.color;
-          ctx.shadowColor = p.color;
-          ctx.shadowBlur = size * 2.2;
-          ctx.globalAlpha = alpha;
-          ctx.arc(px, py, size, 0, Math.PI * 2);
-          ctx.fill();
         }
         ctx.shadowBlur = 0;
         ctx.globalAlpha = 1;
-        time += dt;
+        if (!reduceMotion) time += dt;
         if (!reduceMotion) requestAnimationFrame(frame);
       }
       requestAnimationFrame(frame);
