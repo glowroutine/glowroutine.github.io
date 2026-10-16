@@ -334,22 +334,30 @@
         canvas.height = Math.max(1, Math.round(h * dpr));
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       }
-      function waveOffset(x, t){
-        return Math.sin(x * 0.011 + t * 1.15) * (h * 0.11)
-             + Math.sin(x * 0.024 - t * 0.8) * (h * 0.05);
+      var path = null;
+      function buildPath(){
+        var start = { x: -0.08 * w, y: h * 1.15 };
+        var end = { x: w * 1.08, y: -0.15 * h };
+        var dv = { x: end.x - start.x, y: end.y - start.y };
+        var len = Math.sqrt(dv.x * dv.x + dv.y * dv.y) || 1;
+        var dirUnit = { x: dv.x / len, y: dv.y / len };
+        var perp = { x: -dirUnit.y, y: dirUnit.x };
+        return { start: start, dirUnit: dirUnit, perp: perp, length: len };
       }
       function seed(){
+        path = buildPath();
         particles = [];
         var N = 110;
         for (var i = 0; i < N; i++) {
+          var g = (Math.random() + Math.random() + Math.random() - 1.5) / 1.5;
           particles.push({
-            x: Math.random() * w,
-            y0: Math.random() * h,
-            vx: rand(10, 22) * (Math.random() < 0.5 ? -1 : 1),
+            s: Math.random(),
+            speed: rand(0.045, 0.1),
+            jitter: g,
             phase: Math.random() * Math.PI * 2,
-            size: rand(0.8, 2),
+            size: rand(0.8, 2.2),
             color: colors[Math.floor(Math.random() * colors.length)],
-            baseAlpha: rand(0.25, 0.7)
+            alphaMax: rand(0.45, 0.85)
           });
         }
       }
@@ -364,24 +372,29 @@
         var dt = Math.min((ts - lastT) / 1000, 0.05);
         lastT = ts;
         ctx.clearRect(0, 0, w, h);
-        var margin = 20;
         for (var i = 0; i < particles.length; i++) {
           var p = particles[i];
           if (!reduceMotion) {
-            p.x += p.vx * dt;
-            if (p.x > w + margin) p.x = -margin;
-            if (p.x < -margin) p.x = w + margin;
+            p.s += p.speed * dt;
+            if (p.s > 1) p.s -= 1;
           }
-          var dx = p.x;
-          var dy = p.y0 + (reduceMotion ? 0 : waveOffset(dx, time));
-          if (dy < -25 || dy > h + 25) continue;
-          var flicker = reduceMotion ? 1 : (0.6 + 0.4 * Math.sin(time * 2.2 + p.phase * 3));
+          var s = p.s;
+          var centerLateral = Math.sin(s * Math.PI * 2 * 1.4 - time * 0.15) * (h * 0.33);
+          var lateral = centerLateral + p.jitter * (h * 0.16);
+          var px = path.start.x + path.dirUnit.x * (s * path.length) + path.perp.x * lateral;
+          var py = path.start.y + path.dirUnit.y * (s * path.length) + path.perp.y * lateral;
+          if (px < -15 || px > w + 15 || py < -15 || py > h + 15) continue;
+          var edgeFade = Math.max(0, 1 - Math.abs(p.jitter));
+          var flicker = reduceMotion ? 1 : (0.65 + 0.35 * Math.sin(time * 2.2 + p.phase * 3));
+          var alpha = p.alphaMax * edgeFade * flicker;
+          if (alpha <= 0.02) continue;
+          var size = p.size * (0.55 + 0.45 * edgeFade);
           ctx.beginPath();
           ctx.fillStyle = p.color;
           ctx.shadowColor = p.color;
-          ctx.shadowBlur = p.size * 3;
-          ctx.globalAlpha = p.baseAlpha * flicker;
-          ctx.arc(dx, dy, p.size, 0, Math.PI * 2);
+          ctx.shadowBlur = size * 3;
+          ctx.globalAlpha = alpha;
+          ctx.arc(px, py, size, 0, Math.PI * 2);
           ctx.fill();
         }
         ctx.shadowBlur = 0;
