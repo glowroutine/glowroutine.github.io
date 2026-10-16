@@ -334,32 +334,23 @@
         canvas.height = Math.max(1, Math.round(h * dpr));
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       }
-      var path = null;
-      function buildPath(){
-        var start = { x: w * 0.5, y: -0.2 * h };
-        var end = { x: w * 0.5, y: h * 1.25 };
-        var dv = { x: end.x - start.x, y: end.y - start.y };
-        var len = Math.sqrt(dv.x * dv.x + dv.y * dv.y) || 1;
-        var dirUnit = { x: dv.x / len, y: dv.y / len };
-        var perp = { x: -dirUnit.y, y: dirUnit.x };
-        return { start: start, dirUnit: dirUnit, perp: perp, length: len };
+      function randG(){ return (Math.random() + Math.random() + Math.random() - 1.5) / 1.5; }
+      function smooth(e0, e1, x){ var t = Math.min(1, Math.max(0, (x - e0) / (e1 - e0))); return t * t * (3 - 2 * t); }
+      var N = 80;
+      function makeParticle(){
+        return {
+          s: Math.random(),
+          speed: rand(0.16, 0.32),
+          jitterX: randG(),
+          jitterY: randG(),
+          size: rand(0.8, 1.8),
+          color: colors[Math.floor(Math.random() * colors.length)],
+          alphaMax: rand(0.5, 0.95)
+        };
       }
       function seed(){
-        path = buildPath();
         particles = [];
-        var N = 110;
-        for (var i = 0; i < N; i++) {
-          var g = (Math.random() + Math.random() + Math.random() - 1.5) / 1.5;
-          particles.push({
-            s: Math.random(),
-            speed: rand(0.045, 0.1),
-            jitter: g,
-            phase: Math.random() * Math.PI * 2,
-            size: rand(0.8, 2.2),
-            color: colors[Math.floor(Math.random() * colors.length)],
-            alphaMax: rand(0.45, 0.85)
-          });
-        }
+        for (var i = 0; i < N; i++) particles.push(makeParticle());
       }
       resize();
       seed();
@@ -372,28 +363,41 @@
         var dt = Math.min((ts - lastT) / 1000, 0.05);
         lastT = ts;
         ctx.clearRect(0, 0, w, h);
+        var cx = w * 0.5, cy = h * 0.55;
+        var focal = h * 1.05;
+        var zFar = h * 2.3, zNear = h * 0.16;
+        var maxSize = h * 0.09;
         for (var i = 0; i < particles.length; i++) {
           var p = particles[i];
           if (!reduceMotion) {
             p.s += p.speed * dt;
-            if (p.s > 1) p.s -= 1;
+            if (p.s >= 1) {
+              var np = makeParticle();
+              np.s = 0;
+              particles[i] = np;
+              p = np;
+            }
           }
           var s = p.s;
-          var centerLateral = Math.sin(s * Math.PI * 2 * 1.4 - time * 0.4) * (w * 0.16);
-          var lateral = centerLateral + p.jitter * (w * 0.07);
-          var px = path.start.x + path.dirUnit.x * (s * path.length) + path.perp.x * lateral;
-          var py = path.start.y + path.dirUnit.y * (s * path.length) + path.perp.y * lateral;
-          if (px < -15 || px > w + 15 || py < -15 || py > h + 15) continue;
-          var edgeFade = Math.max(0, 1 - Math.abs(p.jitter));
-          var approach = 0.45 + 0.85 * s;
-          var flicker = reduceMotion ? 1 : (0.65 + 0.35 * Math.sin(time * 2.2 + p.phase * 3));
-          var alpha = p.alphaMax * edgeFade * flicker * Math.min(1, approach);
-          if (alpha <= 0.02) continue;
-          var size = p.size * (0.55 + 0.45 * edgeFade) * approach;
+          var centerX = Math.sin(s * Math.PI * 2 * 1.3 - time * 0.5) * (h * 0.6);
+          var centerY = Math.cos(s * Math.PI * 2 * 0.8 - time * 0.35) * (h * 0.22);
+          var worldX = centerX + p.jitterX * (h * 0.2);
+          var worldY = centerY + p.jitterY * (h * 0.13);
+          var z = zNear + (zFar - zNear) * (1 - s);
+          var scale = focal / z;
+          var px = cx + worldX * scale;
+          var py = cy + worldY * scale;
+          var size = Math.min(p.size * scale, maxSize);
+          if (px < -size - 10 || px > w + size + 10 || py < -size - 10 || py > h + size + 10) continue;
+          var edgeFade = Math.max(0, 1 - Math.sqrt(p.jitterX * p.jitterX + p.jitterY * p.jitterY) / 1.5);
+          var envelope = smooth(0, 0.1, s) * (1 - smooth(0.88, 1, s));
+          var flicker = reduceMotion ? 1 : (0.75 + 0.25 * Math.sin(time * 3 + s * 20));
+          var alpha = p.alphaMax * edgeFade * flicker * (reduceMotion ? 1 : envelope);
+          if (alpha <= 0.02 || size <= 0.15) continue;
           ctx.beginPath();
           ctx.fillStyle = p.color;
           ctx.shadowColor = p.color;
-          ctx.shadowBlur = size * 3;
+          ctx.shadowBlur = size * 2.2;
           ctx.globalAlpha = alpha;
           ctx.arc(px, py, size, 0, Math.PI * 2);
           ctx.fill();
