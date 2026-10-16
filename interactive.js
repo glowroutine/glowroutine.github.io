@@ -315,12 +315,96 @@
     });
   }
 
+  function initHeroWaveSm(){
+    var canvases = document.querySelectorAll('.hero-wave-sm');
+    if(!canvases.length) return;
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var colors = ['#fff6e6', '#ffd9a8', '#ffffff', '#ffe3c2'];
+
+    canvases.forEach(function(canvas){
+      if(!canvas.getContext) return;
+      var ctx = canvas.getContext('2d');
+      var w = 0, h = 0, dpr = 1, particles = [];
+      function rand(min, max){ return min + Math.random() * (max - min); }
+      function resize(){
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        var rect = canvas.getBoundingClientRect();
+        w = rect.width; h = rect.height;
+        canvas.width = Math.max(1, Math.round(w * dpr));
+        canvas.height = Math.max(1, Math.round(h * dpr));
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+      function seed(){
+        particles = [];
+        var N = 110;
+        for (var i = 0; i < N; i++) {
+          var ang = rand(-0.95, -0.15);
+          var spd = rand(3, 9);
+          particles.push({
+            x: Math.random() * w,
+            y: Math.random() * h,
+            vx: Math.cos(ang) * spd,
+            vy: Math.sin(ang) * spd,
+            phase: Math.random() * Math.PI * 2,
+            wobbleAmp: rand(4, 14),
+            wobbleFreq: rand(0.25, 0.8),
+            size: rand(0.8, 2),
+            color: colors[Math.floor(Math.random() * colors.length)],
+            baseAlpha: rand(0.25, 0.7)
+          });
+        }
+      }
+      resize();
+      seed();
+      window.addEventListener('resize', function(){ resize(); seed(); });
+
+      var time = 0, lastT = null;
+      function frame(ts){
+        if (w === 0 || h === 0) { if (!reduceMotion) requestAnimationFrame(frame); return; }
+        if (lastT === null) lastT = ts;
+        var dt = Math.min((ts - lastT) / 1000, 0.05);
+        lastT = ts;
+        ctx.clearRect(0, 0, w, h);
+        var margin = 20;
+        for (var i = 0; i < particles.length; i++) {
+          var p = particles[i];
+          if (!reduceMotion) {
+            p.x += p.vx * dt;
+            p.y += p.vy * dt;
+            if (p.x > w + margin) p.x = -margin;
+            if (p.x < -margin) p.x = w + margin;
+            if (p.y > h + margin) p.y = -margin;
+            if (p.y < -margin) p.y = h + margin;
+          }
+          var wobX = reduceMotion ? 0 : Math.sin(time * p.wobbleFreq + p.phase) * p.wobbleAmp * 0.4;
+          var wobY = reduceMotion ? 0 : Math.cos(time * p.wobbleFreq * 0.8 + p.phase) * p.wobbleAmp;
+          var dx = p.x + wobX, dy = p.y + wobY;
+          if (dx < -25 || dx > w + 25 || dy < -25 || dy > h + 25) continue;
+          var flicker = reduceMotion ? 1 : (0.6 + 0.4 * Math.sin(time * 2 + p.phase * 3));
+          ctx.beginPath();
+          ctx.fillStyle = p.color;
+          ctx.shadowColor = p.color;
+          ctx.shadowBlur = p.size * 3;
+          ctx.globalAlpha = p.baseAlpha * flicker;
+          ctx.arc(dx, dy, p.size, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.shadowBlur = 0;
+        ctx.globalAlpha = 1;
+        time += dt;
+        if (!reduceMotion) requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', function(){
     initFavoriteButtons();
     initComparator();
     renderFavoritesPage();
     initNewsletterForms();
     initContactForms();
+    initHeroWaveSm();
   });
 
   window.GlowTools = {
