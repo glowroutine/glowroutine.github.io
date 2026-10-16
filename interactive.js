@@ -320,6 +320,31 @@
     if(!canvases.length) return;
     var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var colors = ['#fff6e6', '#ffe3bd', '#ffd49a', '#ffffff', '#fff1d6'];
+    // Glow via pre-rendered sprites (drawImage) instead of ctx.shadowBlur per
+    // shape, which is expensive to recompute every particle every frame and
+    // was the cause of the stutter.
+    function hexToRgb(hex){
+      hex = hex.replace('#', '');
+      return parseInt(hex.substring(0,2),16) + ',' + parseInt(hex.substring(2,4),16) + ',' + parseInt(hex.substring(4,6),16);
+    }
+    function makeSprite(color){
+      var s = 64;
+      var c = document.createElement('canvas');
+      c.width = s; c.height = s;
+      var sctx = c.getContext('2d');
+      var rgb = hexToRgb(color);
+      var g = sctx.createRadialGradient(s/2, s/2, 0, s/2, s/2, s/2);
+      g.addColorStop(0, 'rgba(' + rgb + ',1)');
+      g.addColorStop(0.35, 'rgba(' + rgb + ',0.85)');
+      g.addColorStop(1, 'rgba(' + rgb + ',0)');
+      sctx.fillStyle = g;
+      sctx.beginPath();
+      sctx.arc(s/2, s/2, s/2, 0, Math.PI * 2);
+      sctx.fill();
+      return c;
+    }
+    var sprites = {};
+    colors.forEach(function(c){ sprites[c] = makeSprite(c); });
 
     canvases.forEach(function(canvas){
       if(!canvas.getContext) return;
@@ -328,7 +353,7 @@
       function rand(min, max){ return min + Math.random() * (max - min); }
       function randG(){ return (Math.random() + Math.random() + Math.random() - 1.5) / 1.5; }
       function resize(){
-        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        dpr = Math.min(window.devicePixelRatio || 1, 1.5);
         var rect = canvas.getBoundingClientRect();
         w = rect.width; h = rect.height;
         canvas.width = Math.max(1, Math.round(w * dpr));
@@ -362,7 +387,7 @@
       function buildParticles(){
         bandHalfWidth = h * 0.27;
         particles = [];
-        var count = Math.max(180, Math.round((w * h) / 1350));
+        var count = Math.max(100, Math.round((w * h) / 2500));
         for (var i = 0; i < count; i++) {
           particles.push({
             u: Math.random(),
@@ -377,7 +402,7 @@
           });
         }
         orbs = [];
-        var ocount = Math.max(6, Math.round(w / 160));
+        var ocount = Math.max(4, Math.round(w / 220));
         for (var j = 0; j < ocount; j++) {
           orbs.push({
             u: Math.random(),
@@ -412,27 +437,8 @@
         lastT = ts;
         ctx.clearRect(0, 0, w, h);
 
-        ctx.save();
-        var steps = Math.max(6, Math.round(w / 50));
-        var passes = [
-          { wMul: 1.9, a: 0.08 },
-          { wMul: 1.3, a: 0.13 },
-          { wMul: 0.8, a: 0.17 }
-        ];
-        for (var p = 0; p < passes.length; p++) {
-          ctx.beginPath();
-          for (var si = 0; si <= steps; si++) {
-            var sx = (si / steps) * w;
-            var sy = centerY(sx, time);
-            if (si === 0) ctx.moveTo(sx, sy); else ctx.lineTo(sx, sy);
-          }
-          ctx.strokeStyle = 'rgba(20,8,14,' + passes[p].a + ')';
-          ctx.lineWidth = bandHalfWidth * 2 * passes[p].wMul;
-          ctx.lineCap = 'round';
-          ctx.stroke();
-        }
-        ctx.restore();
-
+        // No dark backdrop drawn here — the photo stays at its original color.
+        // Only the glowing particles/orbs are drawn, additively, directly over it.
         ctx.globalCompositeOperation = 'lighter';
 
         for (var oi = 0; oi < orbs.length; oi++) {

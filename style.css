@@ -244,14 +244,6 @@ nav.main-nav a:hover{color:var(--accent);}
   background-position:center;
   border:1px solid var(--border);
 }
-.hero-banner::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  z-index:0;
-  background:linear-gradient(135deg, rgba(18,8,16,0.4) 0%, rgba(18,8,16,0.2) 45%, rgba(18,8,16,0.36) 100%);
-  pointer-events:none;
-}
 .hero-wave{
   position:absolute;
   inset:0;
@@ -587,14 +579,6 @@ h2.prod-title:first-of-type{border-top:none;padding-top:0;}
 }
 .article-hero-wrap .article-hero{
   margin:0;
-}
-.article-hero-wrap::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  z-index:1;
-  pointer-events:none;
-  background:linear-gradient(135deg, rgba(18,8,16,0.35) 0%, rgba(18,8,16,0.16) 45%, rgba(18,8,16,0.3) 100%);
 }
 .hero-wave-sm{
   position:absolute;
