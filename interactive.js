@@ -339,7 +339,7 @@
         var N = 110;
         for (var i = 0; i < N; i++) {
           var ang = rand(-0.95, -0.15);
-          var spd = rand(3, 9);
+          var spd = rand(20, 45);
           particles.push({
             x: Math.random() * w,
             y: Math.random() * h,

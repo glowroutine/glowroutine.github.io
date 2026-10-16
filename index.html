@@ -18,7 +18,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,600&display=swap">
-<link rel="stylesheet" href="style.css?v=14">
+<link rel="stylesheet" href="style.css?v=15">
 <link rel="canonical" href="https://glowroutinebeauty.com/">
 <script type="application/ld+json">
 {
@@ -334,7 +334,7 @@
     particles = [];
     for (var i = 0; i < N; i++) {
       var ang = rand(-0.95, -0.15); // gentle upward-right drift, varies per particle
-      var spd = rand(4, 12); // px/sec
+      var spd = rand(30, 70); // px/sec
       particles.push({
         x: Math.random() * w,
         y: Math.random() * h,
@@ -393,7 +393,7 @@
 })();
 </script>
 
-<script src="interactive.js?v=2"></script>
+<script src="interactive.js?v=3"></script>
 <script>
 (function(){
   var params = new URLSearchParams(window.location.search);
