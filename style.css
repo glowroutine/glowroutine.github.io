@@ -150,6 +150,7 @@ nav.main-nav a:hover{color:var(--accent);}
 .nav-dropdown-menu a:hover{background:var(--bg);color:var(--accent-dark);}
 
 @media (max-width:640px){
+  .container{padding:0 18px;}
   .header-inner{
     flex-direction:row;
     align-items:center;
@@ -304,14 +305,14 @@ nav.main-nav a:hover{color:var(--accent);}
   .hero-banner{
     min-height:0;
     border-radius:16px;
-    margin:16px 0 30px;
-    padding:22px;
+    margin:14px 0 26px;
+    padding:16px;
   }
   .hero-banner-inner{
     max-width:100%;
-    padding:24px 22px;
+    padding:22px 20px;
   }
-  .hero-banner h1{font-size:28px;}
+  .hero-banner h1{font-size:26px;}
   .hero-banner p{font-size:14.5px;}
   .hero-kicker{font-size:10.5px;letter-spacing:1.5px;white-space:nowrap;}
   .hero-kicker::before,
