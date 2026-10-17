@@ -469,6 +469,12 @@ nav.main-nav a:hover{color:var(--accent);}
 .tag-makeup{background:#fdf1e0;color:#8a5c0c;}
 .tag-bath{background:#e4eef6;color:#2f5f7d;}
 .tag-nails{background:#fbe3e6;color:#b23552;}
+.tag-bodycontour{background:#eae6f7;color:#5b4a9e;}
+.tag-smile{background:#e0f3f0;color:#1f7d72;}
+.tag-scalp{background:#f3e8f5;color:#7a3f8a;}
+.tag-brows{background:#f7f0df;color:#8a6d1f;}
+.tag-tanning{background:#fbeee0;color:#9a5a1f;}
+.tag-facialmassage{background:#e3eef8;color:#2b6a95;}
 .guide-link{
   margin-top:18px;
   font-size:13.5px;

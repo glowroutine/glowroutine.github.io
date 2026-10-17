@@ -46,7 +46,25 @@ var PLANNER_CATEGORIES = [
     img:"https://images.unsplash.com/photo-1457972729786-0411a3b2b626?w=600&q=80&auto=format&fit=crop" },
   { slug:"press-on-nails-manicure-kits", title:"Press-On Nails & At-Home Manicure Kits", group:"Nail Care", tag:"nails",
     concern:["nails"], context:["home","travel"], priority:["convenience","organization"], price:[10,35],
-    img:"https://images.unsplash.com/photo-1655370865452-269cef0b1b85?w=600&q=80&auto=format&fit=crop" }
+    img:"https://images.unsplash.com/photo-1655370865452-269cef0b1b85?w=600&q=80&auto=format&fit=crop" },
+  { slug:"body-contouring-sculpting-tech", title:"Body Contouring & Sculpting Tech", group:"Body Contouring & Sculpting", tag:"bodycontour",
+    concern:["bodycontour"], context:["home"], priority:["results","luxury"], price:[26,65],
+    img:"body-contouring-sculpting-tech.jpg" },
+  { slug:"teeth-whitening-smile-care", title:"Teeth Whitening & Smile Care", group:"Teeth Whitening & Smile", tag:"smile",
+    concern:["smile"], context:["home"], priority:["results","convenience"], price:[15,100],
+    img:"teeth-whitening-smile-care.jpg" },
+  { slug:"scalp-care-hair-growth-tools", title:"Scalp Care & Hair Growth Tools", group:"Scalp & Hair Growth", tag:"scalp",
+    concern:["scalp"], context:["home","travel"], priority:["results","relaxation"], price:[7,499],
+    img:"scalp-care-hair-growth-tools.jpg" },
+  { slug:"eyebrow-eyelash-tools", title:"Eyebrow & Eyelash Tools", group:"Brows & Lashes", tag:"brows",
+    concern:["brows"], context:["home","travel"], priority:["results","convenience"], price:[8,36],
+    img:"eyebrow-eyelash-tools.jpg" },
+  { slug:"self-tanning-bronzing-tools", title:"Self-Tanning & Bronzing Tools", group:"Self-Tanning", tag:"tanning",
+    concern:["tanning"], context:["home"], priority:["convenience","results"], price:[5,90],
+    img:"self-tanning-bronzing-tools.jpg" },
+  { slug:"facial-massage-gua-sha-tools", title:"Facial Massage & Gua Sha Tools", group:"Facial Massage", tag:"facialmassage",
+    concern:["facialmassage"], context:["home","travel"], priority:["relaxation","results"], price:[8,180],
+    img:"facial-massage-gua-sha-tools.jpg" }
 ];
 
 var PLANNER_CONCERNS = [
@@ -54,7 +72,13 @@ var PLANNER_CONCERNS = [
   { key:"hair", label:"Hair styling & health", icon:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="6" cy="6" r="3" /> <path d="M8.12 8.12 12 12" /> <path d="M20 4 8.12 15.88" /> <circle cx="6" cy="18" r="3" /> <path d="M14.8 14.8 20 20" /> </svg>' },
   { key:"makeup", label:"Makeup & vanity", icon:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z" /> <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" /> <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" /> <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" /> <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" /> </svg>' },
   { key:"bath", label:"Bath, relaxation & recovery", icon:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M10 4 8 6" /> <path d="M17 19v2" /> <path d="M2 12h20" /> <path d="M7 19v2" /> <path d="M9 5 7.621 3.621A2.121 2.121 0 0 0 4 5v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5" /> </svg>' },
-  { key:"nails", label:"Nail care & manicures", icon:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M9 2h6" /> <path d="M10 2v4.2a2 2 0 0 1-.4 1.2L7.1 10.9A4 4 0 0 0 6.3 13.3L6 20a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l-.3-6.7a4 4 0 0 0-.8-2.4l-2.5-3.5a2 2 0 0 1-.4-1.2V2" /> </svg>' }
+  { key:"nails", label:"Nail care & manicures", icon:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M9 2h6" /> <path d="M10 2v4.2a2 2 0 0 1-.4 1.2L7.1 10.9A4 4 0 0 0 6.3 13.3L6 20a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l-.3-6.7a4 4 0 0 0-.8-2.4l-2.5-3.5a2 2 0 0 1-.4-1.2V2" /> </svg>' },
+  { key:"bodycontour", label:"Body contouring & sculpting", icon:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M14.4 14.4 9.6 9.6" /> <path d="M18.657 21.485a2 2 0 1 1-2.829-2.828l-1.767 1.768a2 2 0 1 1-2.829-2.829l6.364-6.364a2 2 0 1 1 2.829 2.829l-1.768 1.767a2 2 0 1 1 2.828 2.829z" /> <path d="m21.5 21.5-1.4-1.4" /> <path d="M3.9 3.9 2.5 2.5" /> <path d="M6.404 12.768a2 2 0 1 1-2.829-2.829l1.768-1.767a2 2 0 1 1-2.828-2.829l2.828-2.828a2 2 0 1 1 2.829 2.828l1.767-1.768a2 2 0 1 1 2.829 2.829z" /> </svg>' },
+  { key:"smile", label:"Teeth whitening & smile", icon:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="12" r="10" /> <path d="M8 14s1.5 2 4 2 4-2 4-2" /> <line x1="9" x2="9.01" y1="9" y2="9" /> <line x1="15" x2="15.01" y1="9" y2="9" /> </svg>' },
+  { key:"scalp", label:"Scalp care & hair growth", icon:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.5-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7Z" /> </svg>' },
+  { key:"brows", label:"Brows & lashes", icon:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" /> <circle cx="12" cy="12" r="3" /> </svg>' },
+  { key:"tanning", label:"Self-tanning & bronzing", icon:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="12" r="4" /> <path d="M12 2v2" /> <path d="M12 20v2" /> <path d="m4.93 4.93 1.41 1.41" /> <path d="m17.66 17.66 1.41 1.41" /> <path d="M2 12h2" /> <path d="M20 12h2" /> <path d="m6.34 17.66-1.41 1.41" /> <path d="m19.07 4.93-1.41 1.41" /> </svg>' },
+  { key:"facialmassage", label:"Facial massage & gua sha", icon:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" /> </svg>' }
 ];
 
 var PLANNER_PRIORITIES = [
