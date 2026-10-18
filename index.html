@@ -423,13 +423,13 @@
 
   function buildBand(){
     band = {
-      amp: h * 0.16,
+      amp: h * 0.09,
       cycles: rand(0.9, 1.3),
       phase: rand(0, Math.PI * 2),
-      speed: 0.32,
+      speed: 0.2,
       baseY: h * 0.52,
-      driftAmp: h * 0.1,
-      driftSpeed: rand(0.11, 0.17),
+      driftAmp: h * 0.05,
+      driftSpeed: rand(0.07, 0.1),
       driftPhase: rand(0, Math.PI * 2),
       k2: rand(0.7, 1.6),
       k2phase: rand(0, Math.PI * 2)
@@ -446,33 +446,33 @@
     return 0.55 + 0.45 * Math.sin(x * k2 + band.k2phase + t * 0.2);
   }
   function buildParticles(){
-    bandHalfWidth = h * 0.27;
+    bandHalfWidth = h * 0.18;
     particles = [];
-    var count = Math.max(220, Math.round((w * h) / 2200));
+    var count = Math.max(90, Math.round((w * h) / 4200));
     for (var i = 0; i < count; i++) {
       particles.push({
         u: Math.random(),
-        speed: rand(28, 95),
+        speed: rand(20, 55),
         offset: randG() * bandHalfWidth,
-        wobbleAmp: rand(3, 10),
+        wobbleAmp: rand(2, 6),
         wobbleSpeed: rand(0.4, 1.1),
         wobblePhase: rand(0, Math.PI * 2),
-        size: rand(0.8, 2.2),
+        size: rand(0.6, 1.5),
         color: colors[Math.floor(Math.random() * colors.length)],
-        alphaMax: rand(0.55, 1)
+        alphaMax: rand(0.22, 0.45)
       });
     }
     orbs = [];
-    var ocount = Math.max(8, Math.round(w / 180));
+    var ocount = Math.max(4, Math.round(w / 320));
     for (var j = 0; j < ocount; j++) {
       orbs.push({
         u: Math.random(),
-        speed: rand(14, 30),
+        speed: rand(10, 20),
         offset: randG() * bandHalfWidth * 0.7,
-        size: rand(5, 10),
+        size: rand(3.5, 6.5),
         color: colors[Math.floor(Math.random() * colors.length)],
-        alphaMax: rand(0.35, 0.6),
-        wobbleAmp: rand(4, 9),
+        alphaMax: rand(0.15, 0.28),
+        wobbleAmp: rand(2, 5),
         wobbleSpeed: rand(0.2, 0.5),
         wobblePhase: rand(0, Math.PI * 2)
       });
