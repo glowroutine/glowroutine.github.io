@@ -1065,3 +1065,141 @@ input[type="range"].planner-range::-moz-range-thumb{
   .compare-bar.open{transform:translateX(0) translateY(0);}
   .fav-btn{padding:9px 13px;font-size:13px;}
 }
+
+/* ============================================================
+   Homepage redesign — start paths, editor's-picks spotlight,
+   category rails, mixed grid for the rest. Replaces the old
+   single uniform .guide-grid on index.html only; the original
+   .guide-grid / .guide-card rules above stay as-is because the
+   rails and specialty grid below still reuse the .guide-card look,
+   and every article's own "related guides" section still needs it.
+   ============================================================ */
+
+/* Start here — three real destinations. The middle/dark variants
+   keep the existing card language; the left one gets the same
+   rose gradient + sweep treatment as the Routine Matcher teaser,
+   so it reads as "the same tool", not a fourth unrelated style. */
+.start-paths{
+  display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:18px;margin:0 0 40px;
+}
+.start-path{
+  display:flex;align-items:flex-start;gap:16px;
+  border-radius:18px;padding:26px 24px;min-height:128px;text-decoration:none;
+  transition:transform 0.18s ease, box-shadow 0.18s ease;
+}
+.start-path:hover{transform:translateY(-3px);box-shadow:0 14px 28px rgba(43,33,38,0.14);}
+.start-path .sp-icon{
+  width:42px;height:42px;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  border-radius:50%;border:1.5px solid currentColor;
+}
+.start-path .sp-icon svg{width:19px;height:19px;}
+.start-path h3{font-family:"Cormorant Garamond",Georgia,serif;font-size:18px;font-weight:600;margin:0 0 6px;}
+.start-path h3 em{font-style:italic;}
+.start-path p{margin:0;font-size:13.5px;line-height:1.45;}
+.start-path.sp-accent{background:linear-gradient(135deg, var(--accent), var(--accent-dark));color:#fff;}
+.start-path.sp-accent .sp-icon{border-color:rgba(255,255,255,0.6);color:#fff;}
+.start-path.sp-accent p{color:rgba(255,255,255,0.88);}
+.start-path.sp-card{background:var(--card);border:1px solid var(--border);color:var(--ink);}
+.start-path.sp-card .sp-icon{color:var(--accent-dark);}
+.start-path.sp-card p{color:var(--muted);}
+.start-path.sp-dark{background:var(--ink);color:#f7eef1;}
+.start-path.sp-dark .sp-icon{color:#f0c7d5;}
+.start-path.sp-dark p{color:rgba(247,238,241,0.72);}
+
+/* Editor's picks spotlight — a soft blush-gradient panel the bento
+   sits inside, so it reads as a curated "counter display" rather
+   than more cards on the same flat background. */
+.picks-spotlight{
+  background:linear-gradient(165deg, #fdf1f5 0%, var(--bg) 62%);
+  border:1px solid #f3dde5;border-radius:26px;
+  padding:34px 30px 30px;margin-bottom:52px;
+}
+.spotlight-kicker{
+  display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:800;
+  text-transform:uppercase;letter-spacing:1.2px;color:var(--accent-dark);margin:0 0 18px;padding-left:2px;
+}
+.spotlight-kicker::before{content:"\2726";font-size:12px;color:var(--star);}
+.picks-bento{display:grid;grid-template-columns:1.6fr 1fr;gap:20px;}
+.picks-bento .pick-main{
+  background:var(--card);border:1px solid var(--border);border-radius:0 20px 20px 20px;overflow:hidden;
+  text-decoration:none;color:var(--ink);display:flex;flex-direction:column;
+  box-shadow:0 1px 3px rgba(43,33,38,0.05);transition:transform 0.2s ease, box-shadow 0.2s ease;
+}
+.picks-bento .pick-main:hover{transform:translateY(-4px);box-shadow:0 18px 36px rgba(43,33,38,0.14);}
+.picks-bento .pick-img{background-size:cover;background-position:center;filter:saturate(1.1) contrast(1.05) brightness(1.01) sepia(0.05);}
+.picks-bento .pick-main .pick-img{height:260px;}
+.picks-bento .pick-main .pick-body{padding:24px 26px 28px;}
+.picks-bento .pick-main h3{font-size:23px;margin:10px 0 10px;}
+.picks-bento .pick-main p{margin:0 0 14px;color:var(--muted);font-size:14.5px;line-height:1.55;}
+.pick-stars{color:var(--star);font-size:15px;letter-spacing:2px;}
+.picks-bento .pick-side{display:flex;flex-direction:column;gap:20px;}
+.picks-bento .pick-small{
+  flex:1;display:flex;background:var(--card);border:1px solid var(--border);border-radius:20px 20px 20px 0;overflow:hidden;
+  text-decoration:none;color:var(--ink);transition:transform 0.2s ease, box-shadow 0.2s ease;
+}
+.picks-bento .pick-small:hover{transform:translateY(-4px);box-shadow:0 18px 36px rgba(43,33,38,0.14);}
+.picks-bento .pick-small .pick-img{width:40%;min-height:140px;flex-shrink:0;}
+.picks-bento .pick-small .pick-body{padding:16px 20px;display:flex;flex-direction:column;justify-content:center;min-width:0;}
+.picks-bento .pick-small h3{font-size:15.5px;margin:0 0 6px;line-height:1.32;}
+.picks-bento .pick-small p{margin:0;font-size:12.5px;color:var(--muted);line-height:1.5;}
+.pick-eyebrow{
+  display:inline-block;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;
+  color:var(--accent-dark);background:#fdf1f5;padding:4px 10px;border-radius:20px;align-self:flex-start;
+}
+
+/* Category rails — horizontal scroll instead of another grid row.
+   A thin gold rule under each heading nods to the --star accent
+   used for ratings, so the rails feel like a counter display. */
+.rail-section{margin-bottom:44px;}
+.rail-head{margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border);position:relative;}
+.rail-head::after{content:"";position:absolute;left:0;bottom:-1px;width:46px;height:2px;background:var(--star);}
+.rail-head h2{font-size:21px;margin:0;}
+.rail-head .rail-count{font-size:13px;color:var(--muted);margin-top:4px;display:block;}
+.guide-rail{
+  display:flex;gap:18px;overflow-x:auto;padding:4px 2px 14px;scroll-snap-type:x proximity;
+  -webkit-overflow-scrolling:touch;
+}
+.guide-rail::-webkit-scrollbar{height:7px;}
+.guide-rail::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px;}
+.guide-rail .guide-card{
+  flex:0 0 226px;scroll-snap-align:start;padding:0 18px 20px;
+}
+.guide-rail .guide-thumb{margin:0 -18px 14px;height:150px;}
+.guide-rail .guide-card h3{font-size:14.5px;}
+.guide-rail .guide-card p{
+  font-size:12.5px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;
+}
+.guide-rail .guide-tag{font-size:10px;padding:3px 9px;margin:13px 0 11px;}
+.guide-rail .guide-link{font-size:12.5px;margin-top:12px;}
+
+/* "More for your routine" — mixed grid: a couple of wider feature
+   cards among the standard ones, so the last section isn't uniform
+   either. */
+.specialty-grid{
+  display:grid;grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));gap:18px;
+}
+.spec-wide{
+  grid-column:span 2;display:flex;background:var(--card);border:1px solid var(--border);border-radius:16px;
+  overflow:hidden;text-decoration:none;color:var(--ink);transition:transform 0.2s ease, box-shadow 0.2s ease;
+}
+.spec-wide:hover{transform:translateY(-4px);box-shadow:0 18px 36px rgba(43,33,38,0.14);}
+.spec-wide .spec-img{
+  width:38%;min-height:170px;background-size:cover;background-position:center;flex-shrink:0;
+  filter:saturate(1.1) contrast(1.05) brightness(1.01) sepia(0.05);
+}
+.spec-wide .spec-body{padding:26px 24px;display:flex;flex-direction:column;justify-content:center;min-width:0;}
+.spec-wide .guide-tag{align-self:flex-start;margin:0 0 10px;}
+.spec-wide h3{font-size:16.5px;margin:0 0 8px;}
+.spec-wide p{margin:0;font-size:13.5px;color:var(--muted);line-height:1.5;}
+
+@media (max-width:860px){
+  .start-paths{grid-template-columns:1fr;}
+  .picks-bento{grid-template-columns:1fr;}
+  .picks-bento .pick-main .pick-img{height:200px;}
+  .picks-spotlight{padding:26px 20px 22px;border-radius:20px;}
+}
+@media (max-width:640px){
+  .spec-wide{grid-column:span 1;flex-direction:column;}
+  .spec-wide .spec-img{width:auto;height:150px;}
+  .guide-rail .guide-card{flex-basis:195px;}
+}
